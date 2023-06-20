@@ -97,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Settings.cs" />
     <Compile Include="TaskAddPage.xaml.cs">
       <DependentUpon>TaskAddPage.xaml</DependentUpon>
     </Compile>

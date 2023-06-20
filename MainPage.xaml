@@ -19,7 +19,11 @@
         <DockPanel Grid.Row="1"
                    Background="#FF010006"
                    VerticalAlignment="Top">
-            <ListView x:Name="TaskList" SelectionChanged="TaskList_SelectionChanged" ItemTemplate="{StaticResource TaskItemTemplate}" ItemsSource="{Binding tasks}" />
+            <ListView x:Name="TaskList"
+                      SelectionChanged="TaskList_SelectionChanged" 
+                      ItemContainerStyle="{StaticResource ListViewItemStyle}"
+                      ItemsSource="{Binding tasks}" 
+                      BorderThickness="0"/>
         </DockPanel>
     </Grid>
 </Page>

@@ -1,10 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -31,15 +26,12 @@ namespace Note
         {
             MainWindow.tasks.Clear();
 
-            string connectionString = "server=localhost;database=ObscuraOS;uid=root;password=;";
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
             {
                 try
                 {
                     connection.Open();
 
-                    // Retrieve tasks from the database
                     string selectTasksQuery = "SELECT Title,Description FROM Tasks";
                     using (MySqlCommand selectTasksCommand = new MySqlCommand(selectTasksQuery, connection))
                     {
@@ -50,7 +42,6 @@ namespace Note
                                 string title = reader.GetString("Title");
                                 string description = reader.GetString("Description");
 
-                                // Create a new task item and add it to the tasks list
                                 MainWindow.Task task = new MainWindow.Task
                                 {
                                     Title = title,
@@ -64,7 +55,6 @@ namespace Note
                 }
                 catch (Exception ex)
                 {
-                    // Handle any errors that occur during database operations
                     MessageBox.Show("Error loading tasks from the database: " + ex.Message);
                 }
             }

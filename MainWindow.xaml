@@ -10,7 +10,8 @@
         MinHeight="100"
         BorderThickness="1"
         BorderBrush="#002e4d"
-        WindowStyle="None">
+        WindowStyle="None"
+        AllowsTransparency="True">
     <WindowChrome.WindowChrome>
         <WindowChrome 
             GlassFrameThickness="0" 

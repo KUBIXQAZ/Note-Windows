@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,27 +8,50 @@ namespace Note
 {
     public partial class TaskViewPage : Page
     {
-        string title;
-        string desc;
+        MainWindow.Task currTask;
 
         public TaskViewPage(MainWindow.Task task)
         {
             InitializeComponent();
-            title = task.Title;
-            desc = task.Description;
+
+            currTask = task;
         }
 
         private void BackEditB_Click(object sender, RoutedEventArgs e)
         {
-            Window parentWindow = Window.GetWindow(this);
-            Frame mainFrame = (Frame)parentWindow.FindName("Main");
-            mainFrame.Content = new MainPage();
+            NavigationService.Navigate(new MainPage());
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            TitleTask.Text = title;
-            DescTask.Text = desc;
+            TitleTask.Text = currTask.Title;
+            DescTask.Text = currTask.Description;
+        }
+
+        private void DeleteTask_Click(object sender, RoutedEventArgs e)
+        {
+            using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
+            {
+                try
+                {
+                    connection.Open();
+
+                    MainWindow.Task taskToDelete = currTask;
+
+                    string deleteQuery = "DELETE FROM Tasks WHERE Title = @title AND Description = @desc";
+                    MySqlCommand command = new MySqlCommand(deleteQuery, connection);
+                    command.Parameters.AddWithValue("@title", taskToDelete.Title);
+                    command.Parameters.AddWithValue("@desc", taskToDelete.Description);
+
+                    command.ExecuteNonQuery();
+
+                    NavigationService.Navigate(new MainPage());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error saving tasks to the database: " + ex.Message);
+                }
+            }
         }
     }
 }
