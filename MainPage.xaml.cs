@@ -32,18 +32,20 @@ namespace Note
                 {
                     connection.Open();
 
-                    string selectTasksQuery = "SELECT Title,Description FROM Tasks";
+                    string selectTasksQuery = "SELECT id,Title,Description FROM Tasks";
                     using (MySqlCommand selectTasksCommand = new MySqlCommand(selectTasksQuery, connection))
                     {
                         using (MySqlDataReader reader = selectTasksCommand.ExecuteReader())
                         {
                             while (reader.Read())
                             {
+                                int id = Convert.ToInt32(reader["id"]);
                                 string title = reader.GetString("Title");
                                 string description = reader.GetString("Description");
 
                                 MainWindow.Task task = new MainWindow.Task
                                 {
+                                    Id = id,
                                     Title = title,
                                     Description = description
                                 };

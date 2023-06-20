@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -24,8 +25,6 @@ namespace Note
                 Description = descTask
             };
 
-            MainWindow.tasks.Add(task);
-
             TitleTask.Text = string.Empty;
             DescTask.Text = string.Empty;
 
@@ -42,6 +41,20 @@ namespace Note
                         insertTaskCommand.Parameters.AddWithValue("@Description", task.Description);
                         insertTaskCommand.ExecuteNonQuery();
                     }
+
+                    string getIdQuery = "SELECT MAX(id) as id FROM Tasks;";
+                    using (MySqlCommand selectTasksCommand = new MySqlCommand(getIdQuery, connection))
+                    {
+                        using (MySqlDataReader reader = selectTasksCommand.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int id = Convert.ToInt32(reader["id"]);
+                                task.Id = id;
+                            }
+                        }
+                    }
+                    MainWindow.tasks.Add(task);
                 }
                 catch (Exception ex)
                 {

@@ -38,10 +38,9 @@ namespace Note
 
                     MainWindow.Task taskToDelete = currTask;
 
-                    string deleteQuery = "DELETE FROM Tasks WHERE Title = @title AND Description = @desc";
+                    string deleteQuery = "DELETE FROM Tasks WHERE id = @id";
                     MySqlCommand command = new MySqlCommand(deleteQuery, connection);
-                    command.Parameters.AddWithValue("@title", taskToDelete.Title);
-                    command.Parameters.AddWithValue("@desc", taskToDelete.Description);
+                    command.Parameters.AddWithValue("@id", taskToDelete.Id);
 
                     command.ExecuteNonQuery();
 
