@@ -12,6 +12,13 @@
         BorderBrush="#002e4d"
         WindowStyle="None"
         AllowsTransparency="True">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome 
             GlassFrameThickness="0" 
@@ -27,17 +34,18 @@
                     MouseLeftButtonDown="DockPanel_MouseLeftButtonDown"
                     MouseMove="DockPanel_MouseMove"
                     MouseLeftButtonUp="DockPanel_MouseLeftButtonUp">
-            <Button x:Name="AddTaskB" 
-                    Width="50" 
+            <Button x:Name="AddTaskB"
+                    Width="15" 
                     Height="15" 
                     Margin="10 0 8 0" 
-                    Content="ADD"
                     FontSize="14"
-                    Padding="0 -3 0 0"
-                    Background="Orange" 
+                    Padding="0 -3 0 0" 
                     Click="AddTaskB_Click_1"
                     BorderThickness="0">
-            </Button>  
+                <Button.Background>
+                    <ImageBrush ImageSource="/plus.png"/>
+                </Button.Background>
+            </Button>
             <StackPanel 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right">

@@ -7,40 +7,36 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TaskAddPage">
-    <Grid>
-        <DockPanel Grid.Row="1"
-                   Background="#FF010006">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Background="#FF050110">
+        <DockPanel Grid.Row="1">
             <StackPanel
                 HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Title" Foreground="White" FontSize="30"></TextBlock>
+                <TextBlock Text="Title" Foreground="#a598d6" FontSize="30"></TextBlock>
                 <TextBox x:Name="TitleTask"
-                     Width="200"
-                     Height="30"/>
-                <TextBlock Text="Description" Foreground="White" FontSize="30"></TextBlock>
+                         Style="{StaticResource TextBoxStyle}"
+                         Width="200"
+                         Height="30"/>
+                <TextBlock Text="Description" Foreground="#a598d6" FontSize="30"></TextBlock>
                 <TextBox x:Name="DescTask"
-                     Width="200"
-                           Background="White"
-                           Foreground="Black"
-                     Height="100"/>
+                         Style="{StaticResource TextBoxStyle}"
+                         Width="200"
+                         Height="100"/>
                 <Button x:Name="BackB" 
-                    Width="200" 
-                        Margin="0 10 0 0"
-                    Height="30" 
-                    Background="White" 
-                    Click="BackB_Click"
-                        Content="BACK"
-                        FontSize="20"
-                    BorderThickness="0">
+                        Style="{StaticResource ButtonStyle}"
+                        Click="BackB_Click"
+                        Content="BACK">
                 </Button>
                 <Button x:Name="AddTaskB" 
-                    Width="200" 
-                        Margin="0 10 0 0"
-                    Height="30" 
-                    Background="White" 
-                    Click="AddTaskB_Click"
-                        Content="SUBMIT"
-                        FontSize="20"
-                    BorderThickness="0">
+                        Style="{StaticResource ButtonStyle}"
+                        Click="AddTaskB_Click"
+                        Content="SUBMIT">
                 </Button>
             </StackPanel>
         </DockPanel>

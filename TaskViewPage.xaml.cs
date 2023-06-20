@@ -1,7 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 

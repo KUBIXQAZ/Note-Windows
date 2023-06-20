@@ -15,15 +15,14 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid>
+    <Grid Background="#FF050110">
         <DockPanel Grid.Row="1"
-                   Background="#FF010006"
                    VerticalAlignment="Top">
             <ListView x:Name="TaskList"
                       SelectionChanged="TaskList_SelectionChanged" 
                       ItemContainerStyle="{StaticResource ListViewItemStyle}"
                       ItemsSource="{Binding tasks}" 
-                      BorderThickness="0"/>
+                      BorderThickness="0" Background="{x:Null}"/>
         </DockPanel>
     </Grid>
 </Page>
