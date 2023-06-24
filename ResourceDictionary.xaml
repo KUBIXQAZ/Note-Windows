@@ -77,6 +77,31 @@
         </Setter>
     </Style>
 
+    <Style TargetType="RichTextBox" x:Key="RichTextBoxStyle">
+        <Setter Property="Foreground" Value="#a598d6"/>
+        <Setter Property="Margin" Value="0 10 0 0"/>
+        <Setter Property="Background" Value="#0b0429"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RichTextBox">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="#0f0633"
+                            BorderThickness="1"
+                            SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="IBeam"/>
+                            <Setter Property="Background" Value="#0f0633"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
         <Setter Property="Foreground" Value="#a598d6"/>
         <Setter Property="Background" Value="#0b0429"/>

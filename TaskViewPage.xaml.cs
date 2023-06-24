@@ -2,6 +2,8 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Forms;
 
 namespace Note
 {
@@ -28,7 +30,8 @@ namespace Note
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             TitleTask.Text = currTask.Title;
-            DescTask.Text = currTask.Description;
+            DescTask.Document.Blocks.Clear();
+            DescTask.Document.Blocks.Add(new Paragraph(new Run(currTask.Description)));
         }
 
         private void DeleteTask_Click(object sender, RoutedEventArgs e)
@@ -51,7 +54,7 @@ namespace Note
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error saving tasks to the database: " + ex.Message);
+                    System.Windows.MessageBox.Show("Error saving tasks to the database: " + ex.Message);
                 }
             }
         }
@@ -68,11 +71,11 @@ namespace Note
 
         public void checkChange()
         {
-            if (title != TitleTask.Text || desc != DescTask.Text)
+            if (title != TitleTask.Text || desc.Replace("\n", Environment.NewLine) != new TextRange(DescTask.Document.ContentStart, DescTask.Document.ContentEnd).Text.Replace("\n", Environment.NewLine))
             {
                 SaveExitB.Visibility = Visibility.Visible;
 
-                if (TitleTask.Text == "" || DescTask.Text == "") SaveExitB.IsEnabled = false;
+                if (TitleTask.Text == "" || new TextRange(DescTask.Document.ContentStart, DescTask.Document.ContentEnd).Text == "") SaveExitB.IsEnabled = false;
                 else SaveExitB.IsEnabled = true;
             }
             else
@@ -95,7 +98,7 @@ namespace Note
                     MySqlCommand command = new MySqlCommand(updateQuery, connection);
                     command.Parameters.AddWithValue("@id", taskToDelete.Id);
                     command.Parameters.AddWithValue("@title", TitleTask.Text);
-                    command.Parameters.AddWithValue("@desc", DescTask.Text);
+                    command.Parameters.AddWithValue("@desc", new TextRange(DescTask.Document.ContentStart, DescTask.Document.ContentEnd).Text);
 
                     command.ExecuteNonQuery();
 
@@ -103,7 +106,7 @@ namespace Note
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error saving tasks to the database: " + ex.Message);
+                    System.Windows.MessageBox.Show("Error saving tasks to the database: " + ex.Message);
                 }
             }
         }

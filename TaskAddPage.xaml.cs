@@ -2,6 +2,8 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Navigation;
 
 namespace Note
@@ -16,7 +18,7 @@ namespace Note
         public void AddTaskB_Click(object sender, RoutedEventArgs e)
         {
             string titleTask = TitleTask.Text;
-            string descTask = DescTask.Text;
+            string descTask = new TextRange(DescTask.Document.ContentStart, DescTask.Document.ContentEnd).Text;
 
             MainWindow.Task task = new MainWindow.Task
             {
@@ -24,8 +26,8 @@ namespace Note
                 Description = descTask
             };
 
-            TitleTask.Text = string.Empty;
-            DescTask.Text = string.Empty;
+            TitleTask.Text = "";
+            DescTask.Document.Blocks.Clear();
 
             using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
             {
@@ -57,7 +59,7 @@ namespace Note
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error saving tasks to the database: " + ex.Message);
+                    System.Windows.MessageBox.Show("Error saving tasks to the database: " + ex.Message);
                 }
             }
 

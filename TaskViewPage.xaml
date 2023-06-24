@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Note"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="470" d:DesignWidth="800"
       Title="TaskViewPage"
       Loaded="Page_Loaded">
     <Page.Resources>
@@ -24,18 +24,18 @@
                            FontSize="30"                                
                            Foreground="#a598d6"/>
                 <TextBox x:Name="TitleTask"
-                         Style="{StaticResource TextBoxStyle}"
-                         KeyUp="TitleTask_KeyUp"
-                         Width="200"
-                         Height="30"/>
+                          Style="{StaticResource TextBoxStyle}"
+                             KeyUp="TitleTask_KeyUp"
+                             Width="700"
+                             Height="30"/>
                 <TextBlock Text="Description" 
                            Foreground="#a598d6" 
                            FontSize="30"/>
-                <TextBox x:Name="DescTask"
-                         Style="{StaticResource TextBoxStyle}"
-                         Width="200" 
-                         Height="100"
-                         KeyUp="DescTask_KeyUp"/>
+                <RichTextBox x:Name="DescTask"
+                             Style="{StaticResource RichTextBoxStyle}"
+                             Width="700" 
+                             Height="200"
+                             KeyUp="DescTask_KeyUp"/>
                 <Button x:Name="DeleteTask" 
                         Style="{StaticResource ButtonStyle}"
                         Click="DeleteTask_Click"
