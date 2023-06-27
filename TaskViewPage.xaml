@@ -19,6 +19,7 @@
         <DockPanel Grid.Row="1">
             <StackPanel
                 HorizontalAlignment="Center" 
+                Margin="10"
                 VerticalAlignment="Center">
                 <TextBlock Text="Title" 
                            FontSize="30"                                

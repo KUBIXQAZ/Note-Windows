@@ -17,7 +17,9 @@
     <Grid Background="#FF050110">
         <DockPanel Grid.Row="1">
             <StackPanel
-                HorizontalAlignment="Center" VerticalAlignment="Center">
+                HorizontalAlignment="Center" 
+                Margin="10"
+                VerticalAlignment="Center">
                 <TextBlock Text="Title" Foreground="#a598d6" FontSize="30"></TextBlock>
                 <TextBox x:Name="TitleTask"
                          Style="{StaticResource TextBoxStyle}"
