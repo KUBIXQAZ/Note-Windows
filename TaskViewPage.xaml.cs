@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -10,16 +11,16 @@ namespace Note
     public partial class TaskViewPage : Page
     {
         MainWindow.Task currTask;
-        string title;
-        string desc;
+        string curTaskTitle;
+        string curTaskDesc;
 
         public TaskViewPage(MainWindow.Task task)
         {
             InitializeComponent();
 
             currTask = task;
-            title = currTask.Title;
-            desc = currTask.Description;
+            curTaskTitle = currTask.Title;
+            curTaskDesc = currTask.Description;
         }
 
         private void BackEditB_Click(object sender, RoutedEventArgs e)
@@ -29,32 +30,36 @@ namespace Note
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            TitleTask.Text = currTask.Title;
+            TitleTask.Text = curTaskTitle;
             DescTask.Document.Blocks.Clear();
-            DescTask.Document.Blocks.Add(new Paragraph(new Run(currTask.Description)));
+            DescTask.Document.Blocks.Add(new Paragraph(new Run(curTaskDesc)));
         }
 
         private void DeleteTask_Click(object sender, RoutedEventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Do you want to proceed?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                try
+                using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
                 {
-                    connection.Open();
+                    try
+                    {
+                        connection.Open();
 
-                    MainWindow.Task taskToDelete = currTask;
+                        MainWindow.Task taskToDelete = currTask;
 
-                    string deleteQuery = "DELETE FROM Tasks WHERE id = @id";
-                    MySqlCommand command = new MySqlCommand(deleteQuery, connection);
-                    command.Parameters.AddWithValue("@id", taskToDelete.Id);
+                        string deleteQuery = "DELETE FROM Tasks WHERE id = @id";
+                        MySqlCommand command = new MySqlCommand(deleteQuery, connection);
+                        command.Parameters.AddWithValue("@id", taskToDelete.Id);
 
-                    command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
 
-                    NavigationService.Navigate(new MainPage());
-                }
-                catch (Exception ex)
-                {
-                    System.Windows.MessageBox.Show("Error saving tasks to the database: " + ex.Message);
+                        NavigationService.Navigate(new MainPage());
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Windows.MessageBox.Show("Error saving tasks to the database: " + ex.Message);
+                    }
                 }
             }
         }
@@ -71,11 +76,11 @@ namespace Note
 
         public void checkChange()
         {
-            if (title != TitleTask.Text || desc.Replace("\n", Environment.NewLine) != new TextRange(DescTask.Document.ContentStart, DescTask.Document.ContentEnd).Text.Replace("\n", Environment.NewLine))
+            if (GlobalFunctions.CheckForChange.StringAndTextbox.InTextBox(curTaskTitle, TitleTask) || GlobalFunctions.CheckForChange.StringAndTextbox.InRichTextBox(curTaskDesc, DescTask))
             {
                 SaveExitB.Visibility = Visibility.Visible;
 
-                if (TitleTask.Text == "" || new TextRange(DescTask.Document.ContentStart, DescTask.Document.ContentEnd).Text == "") SaveExitB.IsEnabled = false;
+                if (GlobalFunctions.IsTextBoxEmpty(TitleTask) || GlobalFunctions.IsRichTextBoxEmpty(DescTask)) SaveExitB.IsEnabled = false;
                 else SaveExitB.IsEnabled = true;
             }
             else

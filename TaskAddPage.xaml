@@ -22,6 +22,7 @@
                 VerticalAlignment="Center">
                 <TextBlock Text="Title" Foreground="#a598d6" FontSize="30"></TextBlock>
                 <TextBox x:Name="TitleTask"
+                         KeyUp="TitleTask_KeyUp"
                          Style="{StaticResource TextBoxStyle}"
                          Width="700"
                          Height="30"/>
@@ -29,7 +30,8 @@
                 <RichTextBox x:Name="DescTask"
                          Style="{StaticResource RichTextBoxStyle}"
                          Width="700"
-                         Height="200"/>
+                         Height="200"
+                             KeyUp="DescTask_KeyUp"/>
                 <Button x:Name="BackB" 
                         Style="{StaticResource ButtonStyle}"
                         Click="BackB_Click"
@@ -38,6 +40,7 @@
                 <Button x:Name="AddTaskB" 
                         Style="{StaticResource ButtonStyle}"
                         Click="AddTaskB_Click"
+                        IsEnabled="False"
                         Content="SUBMIT">
                 </Button>
             </StackPanel>

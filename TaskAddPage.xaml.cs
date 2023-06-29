@@ -17,58 +17,77 @@ namespace Note
 
         public void AddTaskB_Click(object sender, RoutedEventArgs e)
         {
-            string titleTask = TitleTask.Text;
-            string descTask = new TextRange(DescTask.Document.ContentStart, DescTask.Document.ContentEnd).Text;
-
-            MainWindow.Task task = new MainWindow.Task
+            if(!GlobalFunctions.IsTextBoxEmpty(TitleTask) && !GlobalFunctions.IsRichTextBoxEmpty(DescTask))
             {
-                Title = titleTask,
-                Description = descTask
-            };
+                string titleTask = TitleTask.Text;
+                string descTask = new TextRange(DescTask.Document.ContentStart, DescTask.Document.ContentEnd).Text;
 
-            TitleTask.Text = "";
-            DescTask.Document.Blocks.Clear();
-
-            using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
-            {
-                try
+                MainWindow.Task task = new MainWindow.Task
                 {
-                    connection.Open();
+                    Title = titleTask,
+                    Description = descTask
+                };
 
-                    string insertTaskQuery = "INSERT INTO Tasks (Title, Description) VALUES (@Title, @Description)";
-                    using (MySqlCommand insertTaskCommand = new MySqlCommand(insertTaskQuery, connection))
-                    {
-                        insertTaskCommand.Parameters.AddWithValue("@Title", task.Title);
-                        insertTaskCommand.Parameters.AddWithValue("@Description", task.Description);
-                        insertTaskCommand.ExecuteNonQuery();
-                    }
+                TitleTask.Text = "";
+                DescTask.Document.Blocks.Clear();
 
-                    string getIdQuery = "SELECT MAX(id) as id FROM Tasks;";
-                    using (MySqlCommand selectTasksCommand = new MySqlCommand(getIdQuery, connection))
+                using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
+                {
+                    try
                     {
-                        using (MySqlDataReader reader = selectTasksCommand.ExecuteReader())
+                        connection.Open();
+
+                        string insertTaskQuery = "INSERT INTO Tasks (Title, Description) VALUES (@Title, @Description)";
+                        using (MySqlCommand insertTaskCommand = new MySqlCommand(insertTaskQuery, connection))
                         {
-                            while (reader.Read())
+                            insertTaskCommand.Parameters.AddWithValue("@Title", task.Title);
+                            insertTaskCommand.Parameters.AddWithValue("@Description", task.Description);
+                            insertTaskCommand.ExecuteNonQuery();
+                        }
+
+                        string getIdQuery = "SELECT MAX(id) as id FROM Tasks;";
+                        using (MySqlCommand selectTasksCommand = new MySqlCommand(getIdQuery, connection))
+                        {
+                            using (MySqlDataReader reader = selectTasksCommand.ExecuteReader())
                             {
-                                int id = Convert.ToInt32(reader["id"]);
-                                task.Id = id;
+                                while (reader.Read())
+                                {
+                                    int id = Convert.ToInt32(reader["id"]);
+                                    task.Id = id;
+                                }
                             }
                         }
+                        MainWindow.tasks.Add(task);
                     }
-                    MainWindow.tasks.Add(task);
+                    catch (Exception ex)
+                    {
+                        System.Windows.MessageBox.Show("Error saving tasks to the database: " + ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    System.Windows.MessageBox.Show("Error saving tasks to the database: " + ex.Message);
-                }
-            }
 
-            NavigationService.Navigate(new MainPage());
+                NavigationService.Navigate(new MainPage());
+            }
         }
 
         private void BackB_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainPage());
+        }
+
+        private void TitleTask_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            checkCange();
+        }
+
+        private void DescTask_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            checkCange();
+        }
+
+        private void checkCange()
+        {
+            if (GlobalFunctions.IsTextBoxEmpty(TitleTask) || GlobalFunctions.IsRichTextBoxEmpty(DescTask)) AddTaskB.IsEnabled = false;
+            else AddTaskB.IsEnabled = true;
         }
     }
 }
