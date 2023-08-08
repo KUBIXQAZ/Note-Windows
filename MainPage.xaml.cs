@@ -24,6 +24,7 @@ namespace Note
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("id: " + MainWindow.activeUser.id + " username: " + MainWindow.activeUser.username + " password: " + MainWindow.activeUser.password);
             MainWindow.tasks.Clear();
 
             using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
@@ -32,9 +33,10 @@ namespace Note
                 {
                     connection.Open();
 
-                    string selectTasksQuery = "SELECT id,Title,Description FROM Tasks";
+                    string selectTasksQuery = "SELECT tasks.id,tasks.Title,tasks.Description FROM Tasks JOIN accounts ON tasks.userid = accounts.id WHERE tasks.userid = @userid;";
                     using (MySqlCommand selectTasksCommand = new MySqlCommand(selectTasksQuery, connection))
                     {
+                        selectTasksCommand.Parameters.AddWithValue("@userid", MainWindow.activeUser.id);
                         using (MySqlDataReader reader = selectTasksCommand.ExecuteReader())
                         {
                             while (reader.Read())

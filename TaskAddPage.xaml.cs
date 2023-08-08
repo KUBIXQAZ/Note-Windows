@@ -37,11 +37,12 @@ namespace Note
                     {
                         connection.Open();
 
-                        string insertTaskQuery = "INSERT INTO Tasks (Title, Description) VALUES (@Title, @Description)";
+                        string insertTaskQuery = "INSERT INTO Tasks (Title, Description, userid) VALUES (@Title, @Description, @userid)";
                         using (MySqlCommand insertTaskCommand = new MySqlCommand(insertTaskQuery, connection))
                         {
                             insertTaskCommand.Parameters.AddWithValue("@Title", task.Title);
                             insertTaskCommand.Parameters.AddWithValue("@Description", task.Description);
+                            insertTaskCommand.Parameters.AddWithValue("@userid", MainWindow.activeUser.id);
                             insertTaskCommand.ExecuteNonQuery();
                         }
 

@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -22,11 +25,20 @@ namespace Note
 
         public static List<Task> tasks = new List<Task>();
 
+        public class ActiveUser
+        {
+            public int id { get; set; }
+            public string username { get; set; }
+            public string password { get; set; }
+        }
+
+        public static ActiveUser activeUser = new ActiveUser();
+
         public MainWindow()
         {
             InitializeComponent();
 
-            Main.Content = new MainPage();
+            Main.Content = new StartPage();
             Main.NavigationUIVisibility = NavigationUIVisibility.Hidden;
         }
 
@@ -96,6 +108,29 @@ namespace Note
         private void AddTaskB_Click_1(object sender, RoutedEventArgs e)
         {
             Main.Content = new TaskAddPage();
+        }
+
+        private void LogOutB_Click(object sender, RoutedEventArgs e)
+        {
+            activeUser.id = 0;
+            activeUser.username = null;
+            activeUser.password = null;
+
+            LoginPage.userData.AutoLogin = false;
+
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string myAppFolder = Path.Combine(appDataPath, "Note");
+            string userdataFilePath = Path.Combine(myAppFolder, "userdata.json");
+
+            if (!Directory.Exists(myAppFolder))
+            {
+                Directory.CreateDirectory(myAppFolder);
+            }
+
+            string userdataJson = JsonConvert.SerializeObject(LoginPage.userData);
+            File.WriteAllText(userdataFilePath, userdataJson);
+
+            Main.Content = new StartPage();
         }
     }
 }

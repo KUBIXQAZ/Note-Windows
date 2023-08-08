@@ -46,6 +46,18 @@
                     <ImageBrush ImageSource="/plus.png"/>
                 </Button.Background>
             </Button>
+            <Button x:Name="LogOutB"
+                    Width="15" 
+                    Height="15" 
+                    Margin="10 0 8 0" 
+                    FontSize="14"
+                    Padding="0 -3 0 0" 
+                    Click="LogOutB_Click"
+                    BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="/box-arrow-left.png"/>
+                </Button.Background>
+            </Button>
             <StackPanel 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right">
