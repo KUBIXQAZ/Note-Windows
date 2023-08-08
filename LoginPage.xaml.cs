@@ -95,6 +95,7 @@ namespace Note
 
                         NavigationService.Navigate(new MainPage());
                         MessageBox.Show("You have been logged in!", "Login Success");
+                        MessageBox.Show("id: " + activeUser.id + " username: " + activeUser.username + " password: " + activeUser.password);
                     } else
                     {
                         MessageBox.Show("Wrong password or username!", "Authentication Error");

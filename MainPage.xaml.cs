@@ -24,7 +24,6 @@ namespace Note
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("id: " + MainWindow.activeUser.id + " username: " + MainWindow.activeUser.username + " password: " + MainWindow.activeUser.password);
             MainWindow.tasks.Clear();
 
             using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))

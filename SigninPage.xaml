@@ -28,6 +28,7 @@
             <TextBox Width="150px"
                      Height="23px" 
                      Margin="0 0 0 10px"
+                     x:Name="usernameInput"
                      BorderThickness="0 0 0 2px"
                      Foreground="#a598d6"
                      BorderBrush="#0b0429"
@@ -36,28 +37,30 @@
             <TextBlock Text="Password"
                        Foreground="#a598d6"
                        Width="150px"></TextBlock>
-            <TextBox Width="150px"
+            <PasswordBox Width="150px"
                      Height="23px"
                      Foreground="#a598d6"
                      Margin="0 0 0 10px"
+                     x:Name="passwordInput"
                      BorderThickness="0 0 0 2px"
                      BorderBrush="#0b0429"
-                     Background="Transparent"></TextBox>
+                     Background="Transparent"></PasswordBox>
             <TextBlock Text="Confirm Password"
                        Foreground="#a598d6"
                        Width="150px"></TextBlock>
-            <TextBox Width="150px"
+            <PasswordBox Width="150px"
                      Height="23px"
                      Foreground="#a598d6"
                      Margin="0 0 0 10px"
+                     x:Name="confirmPasswordInput"
                      BorderThickness="0 0 0 2px"
                      BorderBrush="#0b0429"
-                     Background="Transparent"></TextBox>
+                     Background="Transparent"></PasswordBox>
             <Button Content="Sign in"
                     Width="150px"
                     Foreground="#a598d6"
                     Background="#0b0429"
-                    Height="23px"></Button>
+                    Height="23px" Click="Button_Click"></Button>
         </StackPanel>
     </Grid>
 </Page>

@@ -2,6 +2,6 @@
 {
     internal class Settings
     {
-        public static string connection_string = "server=localhost;database=ObscuraOS;uid=root;password=;";
+        public static string connection_string = "server=;database=;uid=;password=;";
     }
 }
