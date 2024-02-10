@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using static Note.App;
 
 namespace Note
 {
@@ -117,10 +118,6 @@ namespace Note
             activeUser.password = null;
 
             LoginPage.userData.AutoLogin = false;
-
-            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string myAppFolder = Path.Combine(appDataPath, "Note");
-            string userdataFilePath = Path.Combine(myAppFolder, "userdata.json");
 
             if (!Directory.Exists(myAppFolder))
             {

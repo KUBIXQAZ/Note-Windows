@@ -1,10 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Forms;
 
 namespace Note
 {

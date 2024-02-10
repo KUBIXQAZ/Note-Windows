@@ -43,7 +43,7 @@
                     Click="AddTaskB_Click_1"
                     BorderThickness="0">
                 <Button.Background>
-                    <ImageBrush ImageSource="/plus.png"/>
+                    <ImageBrush ImageSource="Images/plus.png"/>
                 </Button.Background>
             </Button>
             <Button x:Name="LogOutB"
@@ -55,7 +55,7 @@
                     Click="LogOutB_Click"
                     BorderThickness="0">
                 <Button.Background>
-                    <ImageBrush ImageSource="/box-arrow-left.png"/>
+                    <ImageBrush ImageSource="Images/box-arrow-left.png"/>
                 </Button.Background>
             </Button>
             <StackPanel 

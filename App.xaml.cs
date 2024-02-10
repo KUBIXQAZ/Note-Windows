@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
 
 namespace Note
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        public static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public static string myAppFolder = Path.Combine(appDataPath, "KUBIXQAZ/Note");
+        public static string userdataFilePath = Path.Combine(myAppFolder, "userdata.json");
     }
 }

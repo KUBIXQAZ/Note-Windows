@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.IO;
+using static Note.App;
 
 namespace Note
 {
@@ -28,13 +29,10 @@ namespace Note
         {
             try
             {
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string myAppFolder = Path.Combine(appDataPath, "Note");
-                string settingsFilePath = Path.Combine(myAppFolder, "userdata.json");
-                string settingsJson = File.ReadAllText(settingsFilePath);
+                string settingsJson = File.ReadAllText(userdataFilePath);
                 LoginPage.UserData userData = JsonConvert.DeserializeObject<LoginPage.UserData>(settingsJson);
 
-                if (File.Exists(settingsFilePath))
+                if (File.Exists(userdataFilePath))
                 {
                     try
                     {

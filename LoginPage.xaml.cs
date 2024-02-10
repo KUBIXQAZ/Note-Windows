@@ -5,9 +5,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.IO;
-using System.Threading.Tasks;
 using static Note.MainWindow;
 using static Note.LoginPage;
+using static Note.App;
 
 namespace Note
 {
@@ -77,10 +77,6 @@ namespace Note
                             userData.Password = "";
                         }
 
-                        string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                        string myAppFolder = Path.Combine(appDataPath, "Note");
-                        string userdataFilePath = Path.Combine(myAppFolder, "userdata.json");
-
                         if (!Directory.Exists(myAppFolder))
                         {
                             Directory.CreateDirectory(myAppFolder);
@@ -94,12 +90,9 @@ namespace Note
                         activeUser.id = id;
 
                         NavigationService.Navigate(new MainPage());
-                        MessageBox.Show("You have been logged in!", "Login Success");
-                        MessageBox.Show("id: " + activeUser.id + " username: " + activeUser.username + " password: " + activeUser.password);
                     } else
                     {
                         MessageBox.Show("Wrong password or username!", "Authentication Error");
-                        MessageBox.Show("username: " + username + " password: " + password);
                     }
                 }
             }

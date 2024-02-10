@@ -191,13 +191,7 @@
     <Resource Include="Images\plus.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="plus.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\box-arrow-left.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="box-arrow-left.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
