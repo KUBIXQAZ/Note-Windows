@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using static Note.App;
 
 namespace Note
 {
@@ -24,7 +25,7 @@ namespace Note
                 {
                     if(password.Length >= 7)
                     {
-                        using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
+                        using (MySqlConnection connection = new MySqlConnection(connection_string))
                         {
                             connection.Open();
 

@@ -1,9 +1,11 @@
 ﻿using MySql.Data.MySqlClient;
+using Note.Helpers;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Navigation;
+using static Note.App;
 
 namespace Note
 {
@@ -16,7 +18,7 @@ namespace Note
 
         public void AddTaskB_Click(object sender, RoutedEventArgs e)
         {
-            if(!GlobalFunctions.IsTextBoxEmpty(TitleTask) && !GlobalFunctions.IsRichTextBoxEmpty(DescTask))
+            if(!TextBoxFunctions.IsEmpty(TitleTask) && !RichTextBoxFunctions.IsEmpty(DescTask))
             {
                 string titleTask = TitleTask.Text;
                 string descTask = new TextRange(DescTask.Document.ContentStart, DescTask.Document.ContentEnd).Text;
@@ -30,7 +32,7 @@ namespace Note
                 TitleTask.Text = "";
                 DescTask.Document.Blocks.Clear();
 
-                using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
+                using (MySqlConnection connection = new MySqlConnection(connection_string))
                 {
                     try
                     {
@@ -86,7 +88,7 @@ namespace Note
 
         private void checkCange()
         {
-            if (GlobalFunctions.IsTextBoxEmpty(TitleTask) || GlobalFunctions.IsRichTextBoxEmpty(DescTask)) AddTaskB.IsEnabled = false;
+            if (TextBoxFunctions.IsEmpty(TitleTask) || RichTextBoxFunctions.IsEmpty(DescTask)) AddTaskB.IsEnabled = false;
             else AddTaskB.IsEnabled = true;
         }
     }

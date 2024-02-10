@@ -100,28 +100,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="GlobalFunctions.cs" />
-    <Compile Include="LoginPage.xaml.cs">
+    <Compile Include="Helpers\RichTextBoxFunctions.cs" />
+    <Compile Include="Helpers\TextBoxFunctions.cs" />
+    <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
-    <Compile Include="SigninPage.xaml.cs">
+    <Compile Include="Views\SigninPage.xaml.cs">
       <DependentUpon>SigninPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StartPage.xaml.cs">
+    <Compile Include="Views\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TaskAddPage.xaml.cs">
+    <Compile Include="Views\TaskAddPage.xaml.cs">
       <DependentUpon>TaskAddPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TaskViewPage.xaml.cs">
+    <Compile Include="Views\TaskViewPage.xaml.cs">
       <DependentUpon>TaskViewPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="LoginPage.xaml">
+    <Page Include="Views\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -133,29 +133,29 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ResourceDictionary.xaml">
+    <Page Include="Resources\Styles\ResourceDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SigninPage.xaml">
+    <Page Include="Views\SigninPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StartPage.xaml">
+    <Page Include="Views\StartPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TaskAddPage.xaml">
+    <Page Include="Views\TaskAddPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TaskViewPage.xaml">
+    <Page Include="Views\TaskViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,10 +188,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\plus.png" />
+    <Resource Include="Resources\Images\plus.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\box-arrow-left.png" />
+    <Resource Include="Resources\Images\box-arrow-left.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

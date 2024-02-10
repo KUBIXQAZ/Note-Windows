@@ -39,7 +39,7 @@ namespace Note
             string password = passwordInput.Password;
             int id = -1;
 
-            using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
+            using (MySqlConnection connection = new MySqlConnection(connection_string))
             {
                 connection.Open();
 
@@ -85,11 +85,14 @@ namespace Note
                         string userdataJson = JsonConvert.SerializeObject(userData);
                         File.WriteAllText(userdataFilePath, userdataJson);
 
+                        activeUser = new ActiveUser();
+
                         activeUser.username = username;
                         activeUser.password = password;
                         activeUser.id = id;
 
                         NavigationService.Navigate(new MainPage());
+                        controls.Visibility = Visibility.Visible;
                     } else
                     {
                         MessageBox.Show("Wrong password or username!", "Authentication Error");
@@ -98,18 +101,12 @@ namespace Note
             }
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if (userData.AutoLogin == true)
             {
-                await Load();
+                Button_Click(submitB, new RoutedEventArgs(Button.ClickEvent));
             }
-        }
-
-        async System.Threading.Tasks.Task Load()
-        {
-            await System.Threading.Tasks.Task.Delay(800);
-            Button_Click(submitB, new RoutedEventArgs(Button.ClickEvent));
         }
     }
 }

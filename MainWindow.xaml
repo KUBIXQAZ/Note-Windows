@@ -5,65 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Note"
         mc:Ignorable="d"
-        Title="MainWindow" Height="510" Width="800"
+        Title="MainWindow" 
+        Height="510" 
+        Width="800"
         MinWidth="800"
         MinHeight="510"
         BorderThickness="1"
         BorderBrush="#002e4d"
         WindowStyle="None"
         AllowsTransparency="True">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ResourceDictionary.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-    <WindowChrome.WindowChrome>
-        <WindowChrome 
-            GlassFrameThickness="0" 
-            CornerRadius="0" CaptionHeight="0"/>
-    </WindowChrome.WindowChrome>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="39"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <DockPanel  Grid.Row="0"
-                    Background="#000c14"
+                    Background="#20252e"
                     MouseLeftButtonDown="DockPanel_MouseLeftButtonDown"
                     MouseMove="DockPanel_MouseMove"
                     MouseLeftButtonUp="DockPanel_MouseLeftButtonUp">
-            <Button x:Name="AddTaskB"
+            <DockPanel x:Name="Controls">
+                <Button x:Name="AddTaskB"
                     Width="15" 
                     Height="15" 
                     Margin="10 0 8 0" 
                     FontSize="14"
                     Padding="0 -3 0 0" 
                     Click="AddTaskB_Click_1"
-                    BorderThickness="0">
-                <Button.Background>
-                    <ImageBrush ImageSource="Images/plus.png"/>
-                </Button.Background>
-            </Button>
-            <Button x:Name="LogOutB"
+                    BorderThickness="0"
+                    BorderBrush="Transparent">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Images/plus.png"/>
+                    </Button.Background>
+                </Button>
+                <Button x:Name="LogOutB"
                     Width="15" 
                     Height="15" 
                     Margin="10 0 8 0" 
                     FontSize="14"
                     Padding="0 -3 0 0" 
                     Click="LogOutB_Click"
-                    BorderThickness="0">
-                <Button.Background>
-                    <ImageBrush ImageSource="Images/box-arrow-left.png"/>
-                </Button.Background>
-            </Button>
+                    BorderThickness="0"
+                    BorderBrush="Transparent">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Images/box-arrow-left.png"/>
+                    </Button.Background>
+                </Button>
+            </DockPanel>
             <StackPanel 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right">
                 <Button x:Name="MinimizeWindowB" 
                     Width="15" 
                     Height="15" 
+                    BorderBrush="Transparent"
                     Margin="0 0 8 0" 
                     Background="Orange" 
                     Click="MinimizeWindow"
@@ -73,6 +68,7 @@
                     Width="15" 
                     Margin="0 0 8 0" 
                     Height="15" 
+                    BorderBrush="Transparent"
                     Background="#346de0" 
                     Click="ResizeWindow"
                     BorderThickness="0">
@@ -80,6 +76,7 @@
                 <Button x:Name="ExitB" 
                     Width="15" 
                     Margin="0 0 12 0" 
+                    BorderBrush="Transparent"
                     Height="15" 
                     Background="Red" 
                     Click="ExitWindow"

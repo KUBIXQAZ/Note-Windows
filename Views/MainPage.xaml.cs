@@ -2,6 +2,8 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using static Note.App;
 
 namespace Note
 {
@@ -14,11 +16,31 @@ namespace Note
 
         public void RefreshListView()
         {
-            TaskList.Items.Clear();
-
+            TaskList.Children.Clear();
             foreach (MainWindow.Task task in MainWindow.tasks)
             {
-                TaskList.Items.Add(task);
+                var border = new Border
+                {
+                    BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(66, 66, 66)),
+                    BorderThickness = new Thickness(1),
+                    Margin = new Thickness(10,10,10,0)
+                };
+                border.MouseLeftButtonDown += (s, e) =>
+                {
+                    MainWindow.Task selectedTask = task;
+                    TaskViewPage taskDetailsPage = new TaskViewPage(selectedTask);
+
+                    NavigationService.Navigate(taskDetailsPage);
+                };
+
+                var label = new Label
+                {
+                    Content = task.Title
+                };
+
+
+                border.Child = label;
+                TaskList.Children.Add(border);
             }
         }
 
@@ -26,7 +48,7 @@ namespace Note
         {
             MainWindow.tasks.Clear();
 
-            using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
+            using (MySqlConnection connection = new MySqlConnection(connection_string))
             {
                 try
                 {
@@ -63,14 +85,6 @@ namespace Note
             }
 
             RefreshListView();
-        }
-
-        private void TaskList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           MainWindow.Task selectedTask = TaskList.SelectedItem as MainWindow.Task;
-           TaskViewPage taskDetailsPage = new TaskViewPage(selectedTask);
-
-           NavigationService.Navigate(taskDetailsPage);
         }
     }
 }

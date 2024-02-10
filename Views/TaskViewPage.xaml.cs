@@ -1,8 +1,10 @@
 ﻿using MySql.Data.MySqlClient;
+using Note.Helpers;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using static Note.App;
 
 namespace Note
 {
@@ -38,7 +40,7 @@ namespace Note
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Do you want to proceed?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
+                using (MySqlConnection connection = new MySqlConnection(connection_string))
                 {
                     try
                     {
@@ -74,11 +76,11 @@ namespace Note
 
         public void checkChange()
         {
-            if (GlobalFunctions.CheckForChange.StringAndTextbox.InTextBox(curTaskTitle, TitleTask) || GlobalFunctions.CheckForChange.StringAndTextbox.InRichTextBox(curTaskDesc, DescTask))
+            if (TextBoxFunctions.IsChanged(curTaskTitle, TitleTask) || RichTextBoxFunctions.IsChanged(curTaskDesc, DescTask))
             {
                 SaveExitB.Visibility = Visibility.Visible;
 
-                if (GlobalFunctions.IsTextBoxEmpty(TitleTask) || GlobalFunctions.IsRichTextBoxEmpty(DescTask)) SaveExitB.IsEnabled = false;
+                if (TextBoxFunctions.IsEmpty(TitleTask) || RichTextBoxFunctions.IsEmpty(DescTask)) SaveExitB.IsEnabled = false;
                 else SaveExitB.IsEnabled = true;
             }
             else
@@ -89,7 +91,7 @@ namespace Note
 
         private void SaveExitB_Click(object sender, RoutedEventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(Settings.connection_string))
+            using (MySqlConnection connection = new MySqlConnection(connection_string))
             {
                 try
                 {

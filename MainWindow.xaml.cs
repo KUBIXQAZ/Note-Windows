@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using static Note.App;
@@ -33,7 +33,9 @@ namespace Note
             public string password { get; set; }
         }
 
-        public static ActiveUser activeUser = new ActiveUser();
+        public static ActiveUser activeUser = null;
+
+        public static DockPanel controls;
 
         public MainWindow()
         {
@@ -41,6 +43,9 @@ namespace Note
 
             Main.Content = new StartPage();
             Main.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+
+            controls = Controls;
+            controls.Visibility = Visibility.Collapsed;
         }
 
         private void switchState()
@@ -113,21 +118,26 @@ namespace Note
 
         private void LogOutB_Click(object sender, RoutedEventArgs e)
         {
-            activeUser.id = 0;
-            activeUser.username = null;
-            activeUser.password = null;
-
-            LoginPage.userData.AutoLogin = false;
-
-            if (!Directory.Exists(myAppFolder))
+            MessageBoxResult message = MessageBox.Show("Do you really want to log out?", "Note", MessageBoxButton.YesNo);
+            if (message == MessageBoxResult.Yes)
             {
-                Directory.CreateDirectory(myAppFolder);
+                activeUser.id = 0;
+                activeUser.username = null;
+                activeUser.password = null;
+
+                LoginPage.userData.AutoLogin = false;
+
+                if (!Directory.Exists(myAppFolder))
+                {
+                    Directory.CreateDirectory(myAppFolder);
+                }
+
+                string userdataJson = JsonConvert.SerializeObject(LoginPage.userData);
+                File.WriteAllText(userdataFilePath, userdataJson);
+
+                controls.Visibility = Visibility.Collapsed;
+                Main.Content = new StartPage();
             }
-
-            string userdataJson = JsonConvert.SerializeObject(LoginPage.userData);
-            File.WriteAllText(userdataFilePath, userdataJson);
-
-            Main.Content = new StartPage();
         }
     }
 }
