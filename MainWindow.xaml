@@ -19,87 +19,103 @@
             <RowDefinition Height="39"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <DockPanel  Grid.Row="0"
-                    Background="#20252e"
-                    MouseLeftButtonDown="DockPanel_MouseLeftButtonDown"
-                    MouseMove="DockPanel_MouseMove"
-                    MouseLeftButtonUp="DockPanel_MouseLeftButtonUp">
-            <DockPanel x:Name="Controls">
-                <Button x:Name="SettingsB"
+        <!--header-->
+        <Grid Background="#20252e"
+              MouseLeftButtonDown="DockPanel_MouseLeftButtonDown"
+              MouseMove="DockPanel_MouseMove"
+              MouseLeftButtonUp="DockPanel_MouseLeftButtonUp">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!--controls-->
+            <DockPanel Grid.Column="0">
+                <DockPanel x:Name="LoggedinControls">
+                    <Button x:Name="SettingsB"
+                            Width="15" 
+                            Height="15" 
+                            Margin="10 0 8 0" 
+                            Padding="0 -3 0 0" 
+                            Click="SettingsB_Click"
+                            BorderThickness="0"
+                            BorderBrush="Transparent">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Resources/Images/gear.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button x:Name="AddTaskB"
+                            Width="15" 
+                            Height="15" 
+                            Margin="10 0 8 0" 
+                            Padding="0 -3 0 0" 
+                            Click="AddTaskB_Click_1"
+                            BorderThickness="0"
+                            BorderBrush="Transparent">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/Resources/Images/plus.png"/>
+                        </Button.Background>
+                    </Button>
+                </DockPanel>
+                <Button x:Name="BackControl"
+                        Grid.Column="1"
                         Width="15" 
+                        Visibility="Visible"
                         Height="15" 
+                        HorizontalAlignment="left"
                         Margin="10 0 8 0" 
                         FontSize="14"
                         Padding="0 -3 0 0" 
-                        Click="SettingsB_Click"
+                        Click="backControl_Click"
                         BorderThickness="0"
                         BorderBrush="Transparent">
                     <Button.Background>
-                        <ImageBrush ImageSource="/Resources/Images/gear.png"/>
-                    </Button.Background>
-                </Button>
-                <Button x:Name="AddTaskB"
-                    Width="15" 
-                    Height="15" 
-                    Margin="10 0 8 0" 
-                    FontSize="14"
-                    Padding="0 -3 0 0" 
-                    Click="AddTaskB_Click_1"
-                    BorderThickness="0"
-                    BorderBrush="Transparent">
-                    <Button.Background>
-                        <ImageBrush ImageSource="/Resources/Images/plus.png"/>
+                        <ImageBrush ImageSource="/Resources/Images/arrow-left.png"/>
                     </Button.Background>
                 </Button>
             </DockPanel>
-            <Button x:Name="BackControl"
-                    Width="15" 
-                    Visibility="Visible"
-                    Height="15" 
-                    Margin="10 0 8 0" 
-                    FontSize="14"
-                    Padding="0 -3 0 0" 
-                    Click="backControl_Click"
-                    BorderThickness="0"
-                    BorderBrush="Transparent">
-                <Button.Background>
-                    <ImageBrush ImageSource="/Resources/Images/arrow-left.png"/>
-                </Button.Background>
-            </Button>
-            <StackPanel 
-                    Orientation="Horizontal" 
-                    HorizontalAlignment="Right">
+            <!--username label-->
+            <Label Content="User: {user}"
+                   x:Name="UsernameLabel"
+                   HorizontalAlignment="Center"
+                   Grid.Column="1"
+                   VerticalAlignment="Center">
+            </Label>
+            <!--window controls-->
+            <DockPanel HorizontalAlignment="Right"
+                       Grid.Column="2">
                 <Button x:Name="MinimizeWindowB" 
-                    Width="15" 
-                    Height="15" 
-                    BorderBrush="Transparent"
-                    Margin="0 0 8 0" 
-                    Background="Orange" 
-                    Click="MinimizeWindow"
-                    BorderThickness="0">
+                        Width="15" 
+                        Height="15" 
+                        BorderBrush="Transparent"
+                        Margin="0 0 8 0" 
+                        Background="Orange" 
+                        Click="MinimizeWindow"
+                        BorderThickness="0">
                 </Button>
                 <Button x:Name="ResizeB" 
-                    Width="15" 
-                    Margin="0 0 8 0" 
-                    Height="15" 
-                    BorderBrush="Transparent"
-                    Background="#346de0" 
-                    Click="ResizeWindow"
-                    BorderThickness="0">
+                        Width="15" 
+                        Margin="0 0 8 0" 
+                        Height="15" 
+                        BorderBrush="Transparent"
+                        Background="#346de0" 
+                        Click="ResizeWindow"
+                        BorderThickness="0">
                 </Button>
                 <Button x:Name="ExitB" 
-                    Width="15" 
-                    Margin="0 0 12 0" 
-                    BorderBrush="Transparent"
-                    Height="15" 
-                    Background="Red" 
-                    Click="ExitWindow"
-                    BorderThickness="0">
+                        Width="15" 
+                        Margin="0 0 12 0" 
+                        BorderBrush="Transparent"
+                        Height="15" 
+                        Background="Red" 
+                        Click="ExitWindow"
+                        BorderThickness="0">
                 </Button>
-            </StackPanel>
-        </DockPanel>
-        <DockPanel Grid.Row="1">
-            <Frame x:Name="Main"></Frame>
-        </DockPanel>
+            </DockPanel>
+        </Grid>
+        <!--content-->
+        <Frame x:Name="Main" 
+               Grid.Row="1">
+        </Frame>
     </Grid>
 </Window>

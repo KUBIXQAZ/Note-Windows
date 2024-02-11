@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.IO;
+using Note.Models;
 
 
 namespace Note
@@ -8,6 +9,8 @@ namespace Note
     public partial class App : Application
     {
         public static string connection_string = "server=;database=;uid=;password=;";
+
+        public static UserDataModel userData = new UserDataModel();
 
         public static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string myAppFolder = Path.Combine(appDataPath, "KUBIXQAZ/Note");

@@ -8,19 +8,12 @@ using System.IO;
 using static Note.MainWindow;
 using static Note.LoginPage;
 using static Note.App;
+using Note.Models;
 
 namespace Note
 {
     public partial class LoginPage : Page
     {
-        public class UserData
-        {
-            public bool AutoLogin { get; set; } = false;
-            public string Username { get; set; }
-            public string Password { get; set; }
-        }
-        public static UserData userData = new UserData();
-
         public LoginPage(string username, string password)
         {
             InitializeComponent();
@@ -33,11 +26,21 @@ namespace Note
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            GoBackUI(true);
+
+            if (userData.autoLogin == true)
+            {
+                LogIn();
+            }
+        }
+
+        private void LogIn()
+        {
+            int id = -1;
             string username = usernameInput.Text;
             string password = passwordInput.Password;
-            int id = -1;
 
             using (MySqlConnection connection = new MySqlConnection(connection_string))
             {
@@ -62,19 +65,20 @@ namespace Note
                             count = 1;
                         }
                     }
-                    
+
                     if (count == 1)
                     {
                         if (stayloggedin.IsChecked == true)
                         {
-                            userData.AutoLogin = true;
-                            userData.Username = username;
-                            userData.Password = password;
-                        } else
+                            userData.autoLogin = true;
+                            userData.username = username;
+                            userData.password = password;
+                        }
+                        else
                         {
-                            userData.AutoLogin = false;
-                            userData.Username = "";
-                            userData.Password = "";
+                            userData.autoLogin = false;
+                            userData.username = null;
+                            userData.password = null;
                         }
 
                         if (!Directory.Exists(myAppFolder))
@@ -85,14 +89,16 @@ namespace Note
                         string userdataJson = JsonConvert.SerializeObject(userData);
                         File.WriteAllText(userdataFilePath, userdataJson);
 
-                        activeUser = new ActiveUser();
-
-                        activeUser.username = username;
-                        activeUser.password = password;
-                        activeUser.id = id;
+                        user = new UserModel
+                        {
+                            id = id,
+                            username = username,
+                            password = password,
+                        };
 
                         NavigationService.Navigate(new MainPage());
-                    } else
+                    }
+                    else
                     {
                         MessageBox.Show("Wrong password or username!", "Authentication Error");
                     }
@@ -100,14 +106,9 @@ namespace Note
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.backControl.Visibility = Visibility.Visible;
-
-            if (userData.AutoLogin == true)
-            {
-                Button_Click(submitB, new RoutedEventArgs(Button.ClickEvent));
-            }
+            LogIn();
         }
     }
 }

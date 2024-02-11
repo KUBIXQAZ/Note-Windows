@@ -6,14 +6,21 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Navigation;
 using static Note.App;
+using static Note.MainWindow;
 
 namespace Note
 {
-    public partial class TaskAddPage : Page
+    public partial class NoteAddPage : Page
     {
-        public TaskAddPage()
+        public NoteAddPage()
         {
             InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoggedInUI(false);
+            GoBackUI(true);
         }
 
         public void AddTaskB_Click(object sender, RoutedEventArgs e)
@@ -23,10 +30,10 @@ namespace Note
                 string titleTask = TitleTask.Text;
                 string descTask = new TextRange(DescTask.Document.ContentStart, DescTask.Document.ContentEnd).Text;
 
-                MainWindow.Task task = new MainWindow.Task
+                Models.NoteModel task = new Models.NoteModel
                 {
-                    Title = titleTask,
-                    Description = descTask
+                    title = titleTask,
+                    description = descTask
                 };
 
                 TitleTask.Text = "";
@@ -41,9 +48,9 @@ namespace Note
                         string insertTaskQuery = "INSERT INTO Tasks (Title, Description, userid) VALUES (@Title, @Description, @userid)";
                         using (MySqlCommand insertTaskCommand = new MySqlCommand(insertTaskQuery, connection))
                         {
-                            insertTaskCommand.Parameters.AddWithValue("@Title", task.Title);
-                            insertTaskCommand.Parameters.AddWithValue("@Description", task.Description);
-                            insertTaskCommand.Parameters.AddWithValue("@userid", MainWindow.activeUser.id);
+                            insertTaskCommand.Parameters.AddWithValue("@Title", task.title);
+                            insertTaskCommand.Parameters.AddWithValue("@Description", task.description);
+                            insertTaskCommand.Parameters.AddWithValue("@userid", user.id);
                             insertTaskCommand.ExecuteNonQuery();
                         }
 
@@ -55,15 +62,15 @@ namespace Note
                                 while (reader.Read())
                                 {
                                     int id = Convert.ToInt32(reader["id"]);
-                                    task.Id = id;
+                                    task.id = id;
                                 }
                             }
                         }
-                        MainWindow.tasks.Add(task);
+                        notes.Add(task);
                     }
                     catch (Exception ex)
                     {
-                        System.Windows.MessageBox.Show("Error saving tasks to the database: " + ex.Message);
+                        MessageBox.Show("Error saving tasks to the database: " + ex.Message);
                     }
                 }
 
@@ -71,22 +78,17 @@ namespace Note
             }
         }
 
-        private void BackB_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new MainPage());
-        }
-
         private void TitleTask_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            checkCange();
+            CheckChange();
         }
 
         private void DescTask_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            checkCange();
+            CheckChange();
         }
 
-        private void checkCange()
+        private void CheckChange()
         {
             if (TextBoxFunctions.IsEmpty(TitleTask) || RichTextBoxFunctions.IsEmpty(DescTask)) AddTaskB.IsEnabled = false;
             else AddTaskB.IsEnabled = true;

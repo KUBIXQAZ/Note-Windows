@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using static Note.App;
+using static Note.MainWindow;
 
 namespace Note
 {
@@ -13,13 +14,13 @@ namespace Note
         {
             InitializeComponent();
 
-            MainWindow.backTo = this;
+            backTo = this;
         }
 
         public void RefreshListView()
         {
             TaskList.Children.Clear();
-            if(MainWindow.tasks.Count == 0)
+            if(notes.Count == 0)
             {
                 var label = new Label
                 {
@@ -34,7 +35,7 @@ namespace Note
                 TaskList.VerticalAlignment = VerticalAlignment.Top;
             }
 
-            foreach (MainWindow.Task task in MainWindow.tasks)
+            foreach (Models.NoteModel note in notes)
             {
                 var border = new Border
                 {
@@ -44,15 +45,14 @@ namespace Note
                 };
                 border.MouseLeftButtonDown += (s, e) =>
                 {
-                    MainWindow.Task selectedTask = task;
-                    TaskViewPage taskDetailsPage = new TaskViewPage(selectedTask);
+                    NoteViewPage taskDetailsPage = new NoteViewPage(note);
 
                     NavigationService.Navigate(taskDetailsPage);
                 };
 
                 var label = new Label
                 {
-                    Content = task.Title
+                    Content = note.title
                 };
 
 
@@ -63,10 +63,10 @@ namespace Note
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            MainWindow.backControl.Visibility = Visibility.Collapsed;
-            MainWindow.controls.Visibility = Visibility.Visible;
+            GoBackUI(false);
+            LoggedInUI(true);
 
-            MainWindow.tasks.Clear();
+            notes.Clear();
 
             using (MySqlConnection connection = new MySqlConnection(connection_string))
             {
@@ -77,7 +77,7 @@ namespace Note
                     string selectTasksQuery = "SELECT tasks.id,tasks.Title,tasks.Description FROM Tasks JOIN accounts ON tasks.userid = accounts.id WHERE tasks.userid = @userid;";
                     using (MySqlCommand selectTasksCommand = new MySqlCommand(selectTasksQuery, connection))
                     {
-                        selectTasksCommand.Parameters.AddWithValue("@userid", MainWindow.activeUser.id);
+                        selectTasksCommand.Parameters.AddWithValue("@userid", user.id);
                         using (MySqlDataReader reader = selectTasksCommand.ExecuteReader())
                         {
                             while (reader.Read())
@@ -86,14 +86,14 @@ namespace Note
                                 string title = reader.GetString("Title");
                                 string description = reader.GetString("Description");
 
-                                MainWindow.Task task = new MainWindow.Task
+                                Models.NoteModel task = new Models.NoteModel
                                 {
-                                    Id = id,
-                                    Title = title,
-                                    Description = description
+                                    id = id,
+                                    title = title,
+                                    description = description
                                 };
 
-                                MainWindow.tasks.Add(task);
+                                notes.Add(task);
                             }
                         }
                     }

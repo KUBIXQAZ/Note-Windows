@@ -1,14 +1,13 @@
 ﻿using Newtonsoft.Json;
+using Note.Models;
+using Note.Properties;
 using Note.Views;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using static Note.App;
 
 namespace Note
 {
@@ -21,26 +20,13 @@ namespace Note
 
         public static Page backTo = null;
 
-        public class Task
-        {
-            public int Id { get; set; }
-            public string Title { get; set; }
-            public string Description { get; set; }
-        }
+        public static List<Models.NoteModel> notes = new List<Models.NoteModel>();
 
-        public static List<Task> tasks = new List<Task>();
-
-        public class ActiveUser
-        {
-            public int id { get; set; }
-            public string username { get; set; }
-            public string password { get; set; }
-        }
-
-        public static ActiveUser activeUser = null;
+        public static UserModel user = null;
 
         public static DockPanel controls;
         public static Button backControl;
+        public static Label usernameLabel;
 
         public MainWindow()
         {
@@ -49,9 +35,48 @@ namespace Note
             Main.Content = new StartPage();
             Main.NavigationUIVisibility = NavigationUIVisibility.Hidden;
 
-            controls = Controls;
-            controls.Visibility = Visibility.Collapsed;
+            controls = LoggedinControls;
             backControl = BackControl;
+            usernameLabel = UsernameLabel;
+
+            LoggedInUI(true);
+        }
+
+        public static void LoggedInUI(bool show)
+        {
+            if (show == false)
+            {
+                //dont show//
+                controls.Visibility = Visibility.Collapsed;
+                if(user == null)
+                {
+                    usernameLabel.Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                //show//
+                controls.Visibility = Visibility.Visible;
+                if(user != null)
+                {
+                    usernameLabel.Visibility = Visibility.Visible;
+                    usernameLabel.Content = $"User: {user.username}";
+                }
+            }
+        }
+
+        public static void GoBackUI(bool show)
+        {
+            if (show == false)
+            {
+                //dont display//
+                backControl.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                //display//
+                backControl.Visibility = Visibility.Visible;
+            }
         }
 
         private void switchState()
@@ -119,7 +144,7 @@ namespace Note
 
         private void AddTaskB_Click_1(object sender, RoutedEventArgs e)
         {
-            Main.Content = new TaskAddPage();
+            Main.Content = new NoteAddPage();
         }
 
         private void SettingsB_Click(object sender, RoutedEventArgs e)
@@ -129,7 +154,6 @@ namespace Note
 
         private void backControl_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(backTo.Title);
             Main.Content = backTo;
         }
     }

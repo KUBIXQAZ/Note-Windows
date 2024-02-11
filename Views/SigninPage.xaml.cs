@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using static Note.App;
+using static Note.MainWindow;
 
 namespace Note
 {
@@ -11,6 +12,11 @@ namespace Note
         public SigninPage()
         {
             InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            GoBackUI(true);   
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -77,11 +83,6 @@ namespace Note
             {
                 MessageBox.Show("Fill all of the required inputs (username, password, confirmation password)!", "Account Creation Error");
             }
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            MainWindow.backControl.Visibility = Visibility.Visible;
         }
     }
 }

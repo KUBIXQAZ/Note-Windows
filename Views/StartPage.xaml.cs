@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.IO;
 using static Note.App;
+using static Note.MainWindow;
+using Note.Models;
 
 namespace Note
 {
@@ -14,7 +16,7 @@ namespace Note
         {
             InitializeComponent();
 
-            MainWindow.backTo = this;
+            backTo = this;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -29,25 +31,26 @@ namespace Note
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            MainWindow.backControl.Visibility = Visibility.Collapsed;
+            LoggedInUI(false);
+            GoBackUI(false);
 
             try
             {
                 string settingsJson = File.ReadAllText(userdataFilePath);
-                LoginPage.UserData userData = JsonConvert.DeserializeObject<LoginPage.UserData>(settingsJson);
+                UserDataModel userData = JsonConvert.DeserializeObject<UserDataModel>(settingsJson);
 
                 if (File.Exists(userdataFilePath))
                 {
                     try
                     {
-                        if(userData.AutoLogin == true)
+                        if(userData.autoLogin == true)
                         {
-                            if (userData != null && !string.IsNullOrEmpty(userData.Username) && !string.IsNullOrEmpty(userData.Password))
+                            if (userData != null && !string.IsNullOrEmpty(userData.username) && !string.IsNullOrEmpty(userData.password))
                             {
-                                string username = userData.Username;
-                                string password = userData.Password;
+                                string username = userData.username;
+                                string password = userData.password;
 
-                                LoginPage.userData = userData;
+                                App.userData = userData;
 
                                 NavigationService.Navigate(new LoginPage(username, password));
                             }

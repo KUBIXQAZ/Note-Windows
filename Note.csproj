@@ -100,8 +100,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Helpers\RichTextBoxFunctions.cs" />
-    <Compile Include="Helpers\TextBoxFunctions.cs" />
+    <Compile Include="Utilities\RichTextBoxFunctions.cs" />
+    <Compile Include="Utilities\TextBoxFunctions.cs" />
+    <Compile Include="Models\NoteModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\UserDataModel.cs" />
     <Compile Include="Views\Dialogs\TextDialog.xaml.cs">
       <DependentUpon>TextDialog.xaml</DependentUpon>
     </Compile>
@@ -117,11 +120,11 @@
     <Compile Include="Views\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TaskAddPage.xaml.cs">
-      <DependentUpon>TaskAddPage.xaml</DependentUpon>
+    <Compile Include="Views\NoteAddPage.xaml.cs">
+      <DependentUpon>NoteAddPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TaskViewPage.xaml.cs">
-      <DependentUpon>TaskViewPage.xaml</DependentUpon>
+    <Compile Include="Views\NoteViewPage.xaml.cs">
+      <DependentUpon>NoteViewPage.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\Dialogs\TextDialog.xaml">
       <SubType>Designer</SubType>
@@ -165,11 +168,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TaskAddPage.xaml">
+    <Page Include="Views\NoteAddPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TaskViewPage.xaml">
+    <Page Include="Views\NoteViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

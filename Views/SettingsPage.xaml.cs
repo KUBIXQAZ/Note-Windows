@@ -5,8 +5,6 @@ using System.Windows.Controls;
 using static Note.MainWindow;
 using static Note.App;
 using MySql.Data.MySqlClient;
-using Google.Protobuf.WellKnownTypes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static Note.LoginPage;
 
 namespace Note.Views
@@ -17,24 +15,26 @@ namespace Note.Views
         {
             InitializeComponent();
         }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoggedInUI(false);
+            GoBackUI(true);
+        }
 
         private void logoutButtonClick(object sender, RoutedEventArgs e)
         {
             MessageBoxResult message = MessageBox.Show("Do you really want to log out?", "Note", MessageBoxButton.YesNo);
             if (message == MessageBoxResult.Yes)
             {
-                activeUser.id = 0;
-                activeUser.username = null;
-                activeUser.password = null;
-
-                LoginPage.userData.AutoLogin = false;
+                user = null;
+                userData = null;
 
                 if (!Directory.Exists(myAppFolder))
                 {
                     Directory.CreateDirectory(myAppFolder);
                 }
 
-                string userdataJson = JsonConvert.SerializeObject(LoginPage.userData);
+                string userdataJson = JsonConvert.SerializeObject(userData);
                 File.WriteAllText(userdataFilePath, userdataJson);
 
                 controls.Visibility = Visibility.Collapsed;
@@ -51,7 +51,7 @@ namespace Note.Views
                 string query = "DELETE FROM accounts WHERE id = @id";
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@id", MainWindow.activeUser.id);
+                    command.Parameters.AddWithValue("@id", user.id);
                     await command.ExecuteNonQueryAsync();
                     logoutButtonClick(null,null);
                 }
@@ -76,11 +76,11 @@ namespace Note.Views
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@username", result);
-                        command.Parameters.AddWithValue("@id", MainWindow.activeUser.id);
+                        command.Parameters.AddWithValue("@id", user.id);
                         await command.ExecuteNonQueryAsync();
                         
-                        activeUser.username = result;
-                        userData.Username = result;
+                        user.username = result;
+                        userData.username = result;
 
                         if (!Directory.Exists(myAppFolder))
                         {
@@ -112,11 +112,11 @@ namespace Note.Views
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@password", result);
-                        command.Parameters.AddWithValue("@id", MainWindow.activeUser.id);
+                        command.Parameters.AddWithValue("@id", user.id);
                         await command.ExecuteNonQueryAsync();
 
-                        activeUser.password = result;
-                        userData.Password = result;
+                        user.password = result;
+                        userData.password = result;
 
                         if (!Directory.Exists(myAppFolder))
                         {
@@ -130,12 +130,6 @@ namespace Note.Views
                     connection.Close();
                 }
             }
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            MainWindow.backControl.Visibility = Visibility.Visible;
-            MainWindow.controls.Visibility = Visibility.Collapsed;
         }
     }
 }

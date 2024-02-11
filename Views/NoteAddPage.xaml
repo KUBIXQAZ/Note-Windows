@@ -1,4 +1,4 @@
-﻿<Page x:Class="Note.TaskViewPage"
+﻿<Page x:Class="Note.NoteAddPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="470" 
       d:DesignWidth="800"
-      Title="TaskViewPage"
+      Title="NoteAddPage"
       Loaded="Page_Loaded">
     <Grid>
         <StackPanel
@@ -19,32 +19,23 @@
             <TextBox x:Name="TitleTask"
                      KeyUp="TitleTask_KeyUp"
                      Width="700"
-                     VerticalContentAlignment="Center"
-                     Height="30"/>
+                     Height="30">
+            </TextBox>
             <Label Content="Description" 
                    FontSize="30">
             </Label>
             <RichTextBox x:Name="DescTask"
-                         Width="700" 
+                         Width="700"
                          Height="200"
                          KeyUp="DescTask_KeyUp">
             </RichTextBox>
-            <Button x:Name="DeleteTask" 
-                    Click="DeleteTask_Click"
+            <Button x:Name="AddTaskB" 
+                    Click="AddTaskB_Click"
                     Width="150"
-                    Height="23"
-                    Content="DELETE"/>
-            <Button x:Name="SaveExitB"
-                    Visibility="Collapsed"
-                    Width="150"
-                    Height="23"
-                    Click="SaveExitB_Click"
-                    Content="SAVE &amp; CLOSE"/>
-            <Button x:Name="BackEditB" 
-                    Width="150"
-                    Height="23"
-                    Click="BackEditB_Click"
-                    Content="BACK"/>
+                    Height="23" 
+                    IsEnabled="False"
+                    Content="SUBMIT">
+            </Button>
         </StackPanel>
     </Grid>
 </Page>

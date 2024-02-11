@@ -10,14 +10,5 @@ namespace Note.Helpers
             var textRange = new TextRange(richTextBox.Document.ContentStart, richTextBox.Document.ContentEnd);
             return string.IsNullOrWhiteSpace(textRange.Text);
         }
-
-        public static bool IsChanged(string oldString, RichTextBox newRichTextBox)
-        {
-            string oldText = oldString.Trim();
-            string newText = new TextRange(newRichTextBox.Document.ContentStart, newRichTextBox.Document.ContentEnd).Text.Trim();
-
-            if (oldText != newText) return true;
-            else return false;
-        }
     }
 }
