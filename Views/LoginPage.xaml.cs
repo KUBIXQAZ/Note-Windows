@@ -92,7 +92,6 @@ namespace Note
                         activeUser.id = id;
 
                         NavigationService.Navigate(new MainPage());
-                        controls.Visibility = Visibility.Visible;
                     } else
                     {
                         MessageBox.Show("Wrong password or username!", "Authentication Error");
@@ -103,6 +102,8 @@ namespace Note
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            MainWindow.backControl.Visibility = Visibility.Visible;
+
             if (userData.AutoLogin == true)
             {
                 Button_Click(submitB, new RoutedEventArgs(Button.ClickEvent));

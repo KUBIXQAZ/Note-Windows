@@ -10,9 +10,8 @@
       Title="MainPage"
       Loaded="Page_Loaded">
     <Grid>
-        <DockPanel VerticalAlignment="Top">
-            <StackPanel x:Name="TaskList">
-            </StackPanel>
-        </DockPanel>
+        <StackPanel x:Name="TaskList"
+                    VerticalAlignment="Top">
+        </StackPanel>
     </Grid>
 </Page>

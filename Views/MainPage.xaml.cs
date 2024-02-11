@@ -12,11 +12,28 @@ namespace Note
         public MainPage()
         {
             InitializeComponent();
+
+            MainWindow.backTo = this;
         }
 
         public void RefreshListView()
         {
             TaskList.Children.Clear();
+            if(MainWindow.tasks.Count == 0)
+            {
+                var label = new Label
+                {
+                    Content = "You have no notes yet.",
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                };
+                TaskList.VerticalAlignment = VerticalAlignment.Center;
+                TaskList.Children.Add(label);
+            } else
+            {
+                TaskList.VerticalAlignment = VerticalAlignment.Top;
+            }
+
             foreach (MainWindow.Task task in MainWindow.tasks)
             {
                 var border = new Border
@@ -46,6 +63,9 @@ namespace Note
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            MainWindow.backControl.Visibility = Visibility.Collapsed;
+            MainWindow.controls.Visibility = Visibility.Visible;
+
             MainWindow.tasks.Clear();
 
             using (MySqlConnection connection = new MySqlConnection(connection_string))

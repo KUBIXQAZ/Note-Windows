@@ -102,8 +102,14 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\RichTextBoxFunctions.cs" />
     <Compile Include="Helpers\TextBoxFunctions.cs" />
+    <Compile Include="Views\Dialogs\TextDialog.xaml.cs">
+      <DependentUpon>TextDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SigninPage.xaml.cs">
       <DependentUpon>SigninPage.xaml</DependentUpon>
@@ -117,6 +123,10 @@
     <Compile Include="Views\TaskViewPage.xaml.cs">
       <DependentUpon>TaskViewPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Dialogs\TextDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -141,6 +151,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\Styles\ResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SigninPage.xaml">
@@ -191,8 +205,10 @@
     <Resource Include="Resources\Images\plus.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\box-arrow-left.png" />
+    <Resource Include="Resources\Images\gear.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\arrow-left.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

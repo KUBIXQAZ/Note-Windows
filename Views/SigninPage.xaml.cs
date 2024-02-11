@@ -78,5 +78,10 @@ namespace Note
                 MessageBox.Show("Fill all of the required inputs (username, password, confirmation password)!", "Account Creation Error");
             }
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            MainWindow.backControl.Visibility = Visibility.Visible;
+        }
     }
 }

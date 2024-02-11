@@ -13,6 +13,8 @@ namespace Note
         public StartPage()
         {
             InitializeComponent();
+
+            MainWindow.backTo = this;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -27,6 +29,8 @@ namespace Note
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            MainWindow.backControl.Visibility = Visibility.Collapsed;
+
             try
             {
                 string settingsJson = File.ReadAllText(userdataFilePath);

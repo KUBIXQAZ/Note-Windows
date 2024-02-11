@@ -25,6 +25,19 @@
                     MouseMove="DockPanel_MouseMove"
                     MouseLeftButtonUp="DockPanel_MouseLeftButtonUp">
             <DockPanel x:Name="Controls">
+                <Button x:Name="SettingsB"
+                        Width="15" 
+                        Height="15" 
+                        Margin="10 0 8 0" 
+                        FontSize="14"
+                        Padding="0 -3 0 0" 
+                        Click="SettingsB_Click"
+                        BorderThickness="0"
+                        BorderBrush="Transparent">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Resources/Images/gear.png"/>
+                    </Button.Background>
+                </Button>
                 <Button x:Name="AddTaskB"
                     Width="15" 
                     Height="15" 
@@ -38,20 +51,21 @@
                         <ImageBrush ImageSource="/Resources/Images/plus.png"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="LogOutB"
+            </DockPanel>
+            <Button x:Name="BackControl"
                     Width="15" 
+                    Visibility="Visible"
                     Height="15" 
                     Margin="10 0 8 0" 
                     FontSize="14"
                     Padding="0 -3 0 0" 
-                    Click="LogOutB_Click"
+                    Click="backControl_Click"
                     BorderThickness="0"
                     BorderBrush="Transparent">
-                    <Button.Background>
-                        <ImageBrush ImageSource="/Resources/Images/box-arrow-left.png"/>
-                    </Button.Background>
-                </Button>
-            </DockPanel>
+                <Button.Background>
+                    <ImageBrush ImageSource="/Resources/Images/arrow-left.png"/>
+                </Button.Background>
+            </Button>
             <StackPanel 
                     Orientation="Horizontal" 
                     HorizontalAlignment="Right">

@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Note.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -16,6 +18,8 @@ namespace Note
         private static extern bool GetCursorPos(out Point lpPoint);
 
         bool isDraging = false;
+
+        public static Page backTo = null;
 
         public class Task
         {
@@ -36,6 +40,7 @@ namespace Note
         public static ActiveUser activeUser = null;
 
         public static DockPanel controls;
+        public static Button backControl;
 
         public MainWindow()
         {
@@ -46,6 +51,7 @@ namespace Note
 
             controls = Controls;
             controls.Visibility = Visibility.Collapsed;
+            backControl = BackControl;
         }
 
         private void switchState()
@@ -116,28 +122,15 @@ namespace Note
             Main.Content = new TaskAddPage();
         }
 
-        private void LogOutB_Click(object sender, RoutedEventArgs e)
+        private void SettingsB_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult message = MessageBox.Show("Do you really want to log out?", "Note", MessageBoxButton.YesNo);
-            if (message == MessageBoxResult.Yes)
-            {
-                activeUser.id = 0;
-                activeUser.username = null;
-                activeUser.password = null;
+            Main.Content = new SettingsPage();
+        }
 
-                LoginPage.userData.AutoLogin = false;
-
-                if (!Directory.Exists(myAppFolder))
-                {
-                    Directory.CreateDirectory(myAppFolder);
-                }
-
-                string userdataJson = JsonConvert.SerializeObject(LoginPage.userData);
-                File.WriteAllText(userdataFilePath, userdataJson);
-
-                controls.Visibility = Visibility.Collapsed;
-                Main.Content = new StartPage();
-            }
+        private void backControl_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(backTo.Title);
+            Main.Content = backTo;
         }
     }
 }

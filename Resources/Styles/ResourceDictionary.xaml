@@ -5,6 +5,10 @@
         <Setter Property="Background" Value="#191919"/>
     </Style>
 
+    <Style TargetType="{x:Type local:TextDialog}">
+        <Setter Property="Background" Value="#191919"/>
+    </Style>
+
     <Style TargetType="{x:Type CheckBox}">
         <Setter Property="Background" Value="Transparent"/>
     </Style>
