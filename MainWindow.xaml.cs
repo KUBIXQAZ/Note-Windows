@@ -1,45 +1,30 @@
-﻿using Newtonsoft.Json;
-using Note.Models;
-using Note.Properties;
-using Note.Views;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+﻿using Note.Views;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Navigation;
+using static Note.App;
 
 namespace Note
 {
     public partial class MainWindow : Window
     {
-        [DllImport("user32.dll")]
-        private static extern bool GetCursorPos(out Point lpPoint);
-
         bool isDraging = false;
 
         public static Page backTo = null;
 
-        public static List<Models.NoteModel> notes = new List<Models.NoteModel>();
-
-        public static UserModel user = null;
-
-        public static DockPanel controls;
-        public static Button backControl;
-        public static Label usernameLabel;
+        static DockPanel controls;
+        static Button backControl;
+        static Label usernameLabel;
 
         public MainWindow()
         {
             InitializeComponent();
 
             Main.Content = new StartPage();
-            Main.NavigationUIVisibility = NavigationUIVisibility.Hidden;
 
             controls = LoggedinControls;
             backControl = BackControl;
             usernameLabel = UsernameLabel;
-
-            LoggedInUI(true);
         }
 
         public static void LoggedInUI(bool show)
@@ -79,7 +64,8 @@ namespace Note
             }
         }
 
-        private void switchState()
+        #region window control
+        private void SwitchState()
         {
             switch(WindowState)
             {
@@ -92,18 +78,17 @@ namespace Note
             }
         }
 
-        private void MinimizeWindow(object sender, RoutedEventArgs e)
+        private void MinimizeWindowButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        private void ResizeWindow(object sender, RoutedEventArgs e)
+        private void ResizeWindowButton_Click(object sender, RoutedEventArgs e)
         {
-            if(WindowState == WindowState.Maximized) WindowState = WindowState.Normal;
-            else if(WindowState == WindowState.Normal) WindowState = WindowState.Maximized;
+            SwitchState();
         }
         
-        private void ExitWindow(object sender, RoutedEventArgs e)
+        private void ExitWindowButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
@@ -138,21 +123,22 @@ namespace Note
 
         private void DockPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ClickCount == 2) switchState();
+            if (e.ClickCount == 2) SwitchState();
             else isDraging = true;
         }
+        #endregion
 
-        private void AddTaskB_Click_1(object sender, RoutedEventArgs e)
+        private void AddNoteButton_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = new NoteAddPage();
         }
 
-        private void SettingsB_Click(object sender, RoutedEventArgs e)
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = new SettingsPage();
         }
 
-        private void backControl_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = backTo;
         }

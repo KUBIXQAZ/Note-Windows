@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using static Note.MainWindow;
 using static Note.App;
 using MySql.Data.MySqlClient;
-using static Note.LoginPage;
 
 namespace Note.Views
 {
@@ -37,7 +36,6 @@ namespace Note.Views
                 string userdataJson = JsonConvert.SerializeObject(userData);
                 File.WriteAllText(userdataFilePath, userdataJson);
 
-                controls.Visibility = Visibility.Collapsed;
                 NavigationService.Navigate(new StartPage());
             }
         }
