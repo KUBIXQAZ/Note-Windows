@@ -19,10 +19,15 @@
             <RowDefinition Height="39"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <!--header-->
         <Grid Background="#20252e"
               MouseLeftButtonDown="DockPanel_MouseLeftButtonDown"
               MouseMove="DockPanel_MouseMove"
+              Grid.ColumnSpan="2"
               MouseLeftButtonUp="DockPanel_MouseLeftButtonUp">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -113,9 +118,32 @@
                 </Button>
             </DockPanel>
         </Grid>
+        <StackPanel Grid.Row="1"
+                    Background="#1c2126" >
+            <Button Height="30"
+                    x:Name="NotesMenuButton"
+                    Width="30"
+                    BorderBrush="Transparent"
+                    Background="#424242"
+                    Click="NotesButton_Click">
+                <Image Width="15"
+                       Height="15"
+                       Source="/Resources/Images/journal.png"></Image>
+            </Button>
+            <Button Height="30"
+                    x:Name="AccountsMenuButton"
+                    Width="30"
+                    BorderBrush="Transparent"
+                    Click="AccountsButton_Click">
+                <Image Height="17"
+                       Width="17" 
+                       Source="/Resources/Images/person.png"></Image>
+            </Button>
+        </StackPanel>
         <!--content-->
         <Frame x:Name="Main" 
                NavigationUIVisibility="Hidden"
+               Grid.Column="1"
                Grid.Row="1">
         </Frame>
     </Grid>

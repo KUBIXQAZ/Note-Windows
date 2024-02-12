@@ -100,16 +100,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Utilities\RichTextBoxFunctions.cs" />
     <Compile Include="Utilities\TextBoxFunctions.cs" />
     <Compile Include="Models\NoteModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserDataModel.cs" />
+    <Compile Include="Views\Accounts\AccountAddPage.xaml.cs">
+      <DependentUpon>AccountAddPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\AccountViewPage.xaml.cs">
+      <DependentUpon>AccountViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dialogs\TextDialog.xaml.cs">
       <DependentUpon>TextDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accounts\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -126,6 +136,14 @@
     <Compile Include="Views\Notes\NoteViewPage.xaml.cs">
       <DependentUpon>NoteViewPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Accounts\AccountAddPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\AccountViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Dialogs\TextDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,6 +172,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\Styles\ResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Accounts\MainPage.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsPage.xaml">
@@ -212,6 +234,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\arrow-left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\journal.png" />
+    <Resource Include="Resources\Images\person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\clipboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\eye.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

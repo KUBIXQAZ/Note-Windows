@@ -19,7 +19,7 @@ namespace Note
 
         public void RefreshListView()
         {
-            TaskList.Children.Clear();
+            NotesList.Children.Clear();
             if(notes.Count == 0)
             {
                 var label = new Label
@@ -28,18 +28,18 @@ namespace Note
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                 };
-                TaskList.VerticalAlignment = VerticalAlignment.Center;
-                TaskList.Children.Add(label);
+                NotesList.VerticalAlignment = VerticalAlignment.Center;
+                NotesList.Children.Add(label);
             } else
             {
-                TaskList.VerticalAlignment = VerticalAlignment.Top;
+                NotesList.VerticalAlignment = VerticalAlignment.Top;
             }
 
             foreach (Models.NoteModel note in notes)
             {
                 var border = new Border
                 {
-                    BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(66, 66, 66)),
+                    BorderBrush = new SolidColorBrush(Color.FromRgb(66, 66, 66)),
                     BorderThickness = new Thickness(1),
                     Margin = new Thickness(10,10,10,0)
                 };
@@ -57,7 +57,7 @@ namespace Note
 
 
                 border.Child = label;
-                TaskList.Children.Add(border);
+                NotesList.Children.Add(border);
             }
         }
 
@@ -74,7 +74,7 @@ namespace Note
                 {
                     connection.Open();
 
-                    string selectTasksQuery = "SELECT tasks.id,tasks.Title,tasks.Description FROM Tasks JOIN accounts ON tasks.userid = accounts.id WHERE tasks.userid = @userid;";
+                    string selectTasksQuery = "SELECT tasks.id,tasks.Title,tasks.Description FROM tasks JOIN users ON tasks.userid = users.id WHERE tasks.userid = @userid;";
                     using (MySqlCommand selectTasksCommand = new MySqlCommand(selectTasksQuery, connection))
                     {
                         selectTasksCommand.Parameters.AddWithValue("@userid", user.id);

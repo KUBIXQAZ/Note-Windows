@@ -35,7 +35,7 @@ namespace Note
                         {
                             connection.Open();
 
-                            string queryCheck = "SELECT * FROM accounts WHERE username = @username;";
+                            string queryCheck = "SELECT * FROM users WHERE username = @username;";
                             using (MySqlCommand checkCommand = new MySqlCommand(queryCheck, connection))
                             {
                                 checkCommand.Parameters.AddWithValue("@username", username);
@@ -52,7 +52,7 @@ namespace Note
                                         reader.Close();
                                         if (password == confirmPassword)
                                         {
-                                            string insertAccountQuery = "INSERT INTO accounts (username, password) VALUES (@username, @password)";
+                                            string insertAccountQuery = "INSERT INTO users (username, password) VALUES (@username, @password)";
                                             using (MySqlCommand insertAccountCommand = new MySqlCommand(insertAccountQuery, connection))
                                             {
                                                 insertAccountCommand.Parameters.AddWithValue("@username", username);

@@ -61,17 +61,7 @@ namespace Note
             }
         }
 
-        private void TitleTask_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            checkChange();
-        }
-
-        private void DescTask_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            checkChange();
-        }
-
-        public void checkChange()
+        public void CheckChange_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (TextBoxFunctions.IsEmpty(TitleTask) || RichTextBoxFunctions.IsEmpty(DescTask)) SaveB.IsEnabled = false;
             else SaveB.IsEnabled = true;

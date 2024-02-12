@@ -17,7 +17,7 @@
                    FontSize="30">
             </Label>
             <TextBox x:Name="TitleTask"
-                     KeyUp="TitleTask_KeyUp"
+                     KeyUp="CheckChange_KeyUp"
                      Width="700"
                      VerticalContentAlignment="Center"
                      Height="30"/>
@@ -27,7 +27,7 @@
             <RichTextBox x:Name="DescTask"
                          Width="700" 
                          Height="200"
-                         KeyUp="DescTask_KeyUp">
+                         KeyUp="CheckChange_KeyUp">
             </RichTextBox>
             <Button x:Name="DeleteTask" 
                     Click="DeleteTask_Click"

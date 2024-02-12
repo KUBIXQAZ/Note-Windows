@@ -46,7 +46,7 @@ namespace Note.Views
             {
                 connection.Open();
 
-                string query = "DELETE FROM accounts WHERE id = @id";
+                string query = "DELETE FROM users WHERE id = @id";
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@id", user.id);
@@ -70,7 +70,7 @@ namespace Note.Views
                 {
                     connection.Open();
 
-                    string query = "UPDATE accounts SET username=@username WHERE id=@id";
+                    string query = "UPDATE users SET username=@username WHERE id=@id";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@username", result);
@@ -106,7 +106,7 @@ namespace Note.Views
                 {
                     connection.Open();
 
-                    string query = "UPDATE accounts SET password=@password WHERE id=@id";
+                    string query = "UPDATE users SET password=@password WHERE id=@id";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@password", result);

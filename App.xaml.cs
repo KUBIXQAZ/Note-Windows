@@ -15,6 +15,7 @@ namespace Note
         public static UserModel user = null;
 
         public static List<NoteModel> notes = new List<NoteModel>();
+        public static List<AccountModel> accounts = new List<AccountModel>();
 
         public static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static string myAppFolder = Path.Combine(appDataPath, "KUBIXQAZ/Note");

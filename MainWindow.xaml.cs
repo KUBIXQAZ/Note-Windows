@@ -1,7 +1,10 @@
 ﻿using Note.Views;
+using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using static Note.App;
 
 namespace Note
@@ -130,7 +133,11 @@ namespace Note
 
         private void AddNoteButton_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new NoteAddPage();
+            Page page;
+            if (Main.Content.GetType() == typeof(MainPage)) page = new NoteAddPage();
+            else page = new Views.Accounts.AccountAddPage();
+
+            Main.Content = page;
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
@@ -141,6 +148,20 @@ namespace Note
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             Main.Content = backTo;
+        }
+
+        private void NotesButton_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new MainPage();
+            NotesMenuButton.Background = new SolidColorBrush(Color.FromRgb(66, 66, 66));
+            AccountsMenuButton.Background = Brushes.Transparent;
+        }
+
+        private void AccountsButton_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new Views.Accounts.MainPage();
+            NotesMenuButton.Background = Brushes.Transparent;
+            AccountsMenuButton.Background = new SolidColorBrush(Color.FromRgb(66, 66, 66));
         }
     }
 }

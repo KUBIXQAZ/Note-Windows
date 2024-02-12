@@ -46,7 +46,7 @@ namespace Note
             {
                 connection.Open();
 
-                string query = "SELECT * FROM accounts WHERE username = @username AND password = @password";
+                string query = "SELECT * FROM users WHERE username = @username AND password = @password";
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
