@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Note.Models;
 using static Note.App;
+using static Note.MainWindow;
+using Note.Utilities;
 
 namespace Note.Views.Accounts
 {
@@ -27,13 +29,22 @@ namespace Note.Views.Accounts
             InitializeComponent();
         }
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoggedInUI(false);
+            GoBackUI(true);
+        }
+
         private void AddAccountButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!TextBoxFunctions.IsEmpty(AccountNameTextBox) && !TextBoxFunctions.IsEmpty(AccountEmailTextBox) && !String.IsNullOrEmpty(AccountPasswordTextBox.Password))
+            if (!TextBoxFunctions.IsEmpty(AccountNameTextBox) && !TextBoxFunctions.IsEmpty(AccountEmailTextBox) && !String.IsNullOrEmpty(AccountPasswordPasswordBox.Password) && !TextBoxFunctions.IsEmpty(AccountPasswordTextBox))
             {
+                if (AccountPasswordPasswordBox.Visibility == Visibility.Visible) AccountPasswordTextBox.Text = AccountPasswordPasswordBox.Password;
+                else AccountPasswordPasswordBox.Password = AccountPasswordTextBox.Text;
+
                 string accountName = AccountNameTextBox.Text;
                 string accountEmail = AccountEmailTextBox.Text;
-                string accountPassword = AccountPasswordTextBox.Password;
+                string accountPassword = AccountPasswordPasswordBox.Password;
 
                 AccountModel account = new AccountModel
                 {
@@ -85,8 +96,31 @@ namespace Note.Views.Accounts
 
         private void CheckChange_KeyUp(object sender, KeyEventArgs e)
         {
-            if (TextBoxFunctions.IsEmpty(AccountNameTextBox) || TextBoxFunctions.IsEmpty(AccountEmailTextBox) || string.IsNullOrEmpty(AccountPasswordTextBox.Password)) AddAccountButton.IsEnabled = false;
+            if (TextBoxFunctions.IsEmpty(AccountNameTextBox) || TextBoxFunctions.IsEmpty(AccountEmailTextBox) || string.IsNullOrEmpty(AccountPasswordPasswordBox.Password) || TextBoxFunctions.IsEmpty(AccountPasswordTextBox)) AddAccountButton.IsEnabled = false;
             else AddAccountButton.IsEnabled = true;
+        }
+
+        private void GeneratePasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            string password = PasswordGenerator.Generate();
+            AccountPasswordPasswordBox.Password = password;
+            AccountPasswordTextBox.Text = password;
+        }
+
+        private void SeePasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AccountPasswordPasswordBox.Visibility == Visibility.Visible)
+            {
+                AccountPasswordTextBox.Text = AccountPasswordPasswordBox.Password;
+                AccountPasswordPasswordBox.Visibility = Visibility.Collapsed;
+                AccountPasswordTextBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                AccountPasswordPasswordBox.Password = AccountPasswordTextBox.Text;
+                AccountPasswordPasswordBox.Visibility = Visibility.Visible;
+                AccountPasswordTextBox.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

@@ -103,6 +103,9 @@ namespace Note.Views.Accounts
                 {
                     connection.Open();
 
+                    if (AccountPasswordPasswordBox.Visibility == Visibility.Visible) AccountPasswordTextBox.Text = AccountPasswordPasswordBox.Password;
+                    else AccountPasswordPasswordBox.Password = AccountPasswordTextBox.Text;
+
                     string updateQuery = "UPDATE `accounts` SET `name` = @name, `email` = @email, `password` = @password WHERE `accounts`.`id` = @id;";
                     MySqlCommand command = new MySqlCommand(updateQuery, connection);
                     command.Parameters.AddWithValue("@name", AccountNameTextBox.Text);

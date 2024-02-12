@@ -101,6 +101,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Utilities\PasswordGenerator.cs" />
     <Compile Include="Utilities\RichTextBoxFunctions.cs" />
     <Compile Include="Utilities\TextBoxFunctions.cs" />
     <Compile Include="Models\NoteModel.cs" />

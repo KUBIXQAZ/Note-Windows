@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2023 at 03:21 AM
+-- Generation Time: Feb 12, 2024 at 06:25 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -29,16 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `accounts` (
   `id` int(11) NOT NULL,
-  `username` varchar(35) NOT NULL,
-  `password` varchar(35) NOT NULL
+  `name` text NOT NULL,
+  `email` text NOT NULL,
+  `password` text NOT NULL,
+  `userid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `accounts`
---
-
-INSERT INTO `accounts` (`id`, `username`, `password`) VALUES
-(1, 'admin', 'admin');
 
 -- --------------------------------------------------------
 
@@ -51,6 +46,18 @@ CREATE TABLE `tasks` (
   `Title` varchar(200) NOT NULL,
   `Description` varchar(3000) NOT NULL,
   `userid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(35) NOT NULL,
+  `password` varchar(35) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -70,6 +77,12 @@ ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -77,12 +90,18 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

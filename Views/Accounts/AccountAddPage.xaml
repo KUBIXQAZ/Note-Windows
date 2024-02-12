@@ -7,7 +7,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="470" 
       d:DesignWidth="800"
-      Title="AccountAddPage">
+      Title="AccountAddPage"
+      Loaded="Page_Loaded">
     <Grid>
         <StackPanel HorizontalAlignment="Center" 
                     VerticalAlignment="Center">
@@ -32,13 +33,36 @@
             <Label Content="Password:" 
                    FontSize="25">
             </Label>
-            <PasswordBox x:Name="AccountPasswordTextBox"
-                         VerticalContentAlignment="Center"
-                         Width="200"
-                         Height="30"
-                         VerticalAlignment="Center"
-                         KeyUp="CheckChange_KeyUp">
-            </PasswordBox>
+            <DockPanel>
+                <PasswordBox x:Name="AccountPasswordPasswordBox"
+                 VerticalContentAlignment="Center"
+                 Width="165"
+                 Height="30"
+                 VerticalAlignment="Center"
+                 KeyUp="CheckChange_KeyUp">
+                </PasswordBox>
+                <TextBox x:Name="AccountPasswordTextBox"
+             VerticalContentAlignment="Center"
+             Width="165"
+             Visibility="Collapsed"
+             Height="30"
+             VerticalAlignment="Center"
+             KeyUp="CheckChange_KeyUp">
+                </TextBox>
+                <Button Width="30"
+            BorderBrush="Transparent"
+            Height="30" 
+            Click="SeePasswordButton_Click"
+            Margin="5,0,0,0">
+                    <Image Source="/Resources/Images/eye.png"
+               Height="20"
+               Width="20"></Image>
+                </Button>
+            </DockPanel>
+            <Button Content="Generate"
+                    Style="{StaticResource TextButton}"
+                    Margin="0"
+                    Click="GeneratePasswordButton_Click"></Button>
             <Button Click="AddAccountButton_Click"
                     x:Name="AddAccountButton"
                     Width="150"
