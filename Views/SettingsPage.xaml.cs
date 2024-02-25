@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using static Note.MainWindow;
 using static Note.App;
 using MySql.Data.MySqlClient;
+using Note.Models;
 
 namespace Note.Views
 {
@@ -26,7 +27,7 @@ namespace Note.Views
             if (message == MessageBoxResult.Yes)
             {
                 user = null;
-                userData = null;
+                userData = new UserDataModel();
 
                 if (!Directory.Exists(myAppFolder))
                 {
