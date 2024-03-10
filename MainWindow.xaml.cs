@@ -18,6 +18,8 @@ namespace Note
         static DockPanel controls;
         static Button backControl;
         static Label usernameLabel;
+        static StackPanel menuBar;
+        static Grid mainGrid;
 
         public MainWindow()
         {
@@ -28,6 +30,8 @@ namespace Note
             controls = LoggedinControls;
             backControl = BackControl;
             usernameLabel = UsernameLabel;
+            menuBar = MenuBar;
+            mainGrid = MainGrid;
         }
 
         public static void LoggedInUI(bool show)
@@ -36,7 +40,9 @@ namespace Note
             {
                 //dont show//
                 controls.Visibility = Visibility.Collapsed;
-                if(user == null)
+                menuBar.Visibility = Visibility.Collapsed;
+                mainGrid.ColumnDefinitions.Clear();
+                if (user == null)
                 {
                     usernameLabel.Visibility = Visibility.Collapsed;
                 }
@@ -45,7 +51,10 @@ namespace Note
             {
                 //show//
                 controls.Visibility = Visibility.Visible;
-                if(user != null)
+                menuBar.Visibility = Visibility.Visible;
+                mainGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
+                mainGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                if (user != null)
                 {
                     usernameLabel.Visibility = Visibility.Visible;
                     usernameLabel.Content = $"User: {user.username}";

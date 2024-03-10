@@ -14,7 +14,7 @@
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True">
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="39"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -119,7 +119,8 @@
             </DockPanel>
         </Grid>
         <StackPanel Grid.Row="1"
-                    Background="#1c2126" >
+                    Background="#1c2126" 
+                    x:Name="MenuBar">
             <Button Height="30"
                     x:Name="NotesMenuButton"
                     Width="30"
