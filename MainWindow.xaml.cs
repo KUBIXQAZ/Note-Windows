@@ -20,6 +20,7 @@ namespace Note
         static Label usernameLabel;
         static StackPanel menuBar;
         static Grid mainGrid;
+        static Frame main;
 
         public MainWindow()
         {
@@ -32,6 +33,7 @@ namespace Note
             usernameLabel = UsernameLabel;
             menuBar = MenuBar;
             mainGrid = MainGrid;
+            main = Main;
         }
 
         public static void LoggedInUI(bool show)
@@ -41,7 +43,8 @@ namespace Note
                 //dont show//
                 controls.Visibility = Visibility.Collapsed;
                 menuBar.Visibility = Visibility.Collapsed;
-                mainGrid.ColumnDefinitions.Clear();
+                Grid.SetColumn(main, 0);
+                Grid.SetColumnSpan(main, 2);
                 if (user == null)
                 {
                     usernameLabel.Visibility = Visibility.Collapsed;
@@ -52,8 +55,8 @@ namespace Note
                 //show//
                 controls.Visibility = Visibility.Visible;
                 menuBar.Visibility = Visibility.Visible;
-                mainGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(50) });
-                mainGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                Grid.SetColumn(main, 1);
+                Grid.SetColumnSpan(main, 1);
                 if (user != null)
                 {
                     usernameLabel.Visibility = Visibility.Visible;
