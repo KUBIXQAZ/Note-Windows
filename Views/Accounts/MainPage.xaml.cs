@@ -67,7 +67,7 @@ namespace Note.Views.Accounts
         {
             AccountsList.Children.Clear();
 
-            if (notes.Count == 0)
+            if (accounts.Count == 0)
             {
                 var label = new Label
                 {
